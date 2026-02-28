@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Tableau de bord - AutoLoc Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header"><a href="../../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">🚗</div>
+                    <div class="sidebar-logo-text">Auto<span>Loc</span></div>
+                </a></div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Administration</div>
+                    <a href="dashboard.html" class="sidebar-link active"><span class="sidebar-link-icon">📊</span>
+                        Tableau de bord</a>
+                    <a href="utilisateurs.html" class="sidebar-link"><span class="sidebar-link-icon">👥</span>
+                        Utilisateurs</a>
+                    <a href="validation-kyc.html" class="sidebar-link"><span class="sidebar-link-icon">✅</span>
+                        Validation KYC</a>
+                    <a href="validation-vehicules.html" class="sidebar-link"><span class="sidebar-link-icon">🚗</span>
+                        Validation véhicules</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Système</div>
+                    <a href="liste-vehicules.html" class="sidebar-link"><span class="sidebar-link-icon">🚗</span> Tous
+                        les véhicules</a>
+                    <a href="roles.html" class="sidebar-link"><span class="sidebar-link-icon">🔑</span> Rôles</a>
+                    <a href="audit-log.html" class="sidebar-link"><span class="sidebar-link-icon">📋</span> Journal
+                        d'audit</a>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user" onclick="logout()">
+                    <div class="sidebar-user-avatar"
+                        style="background:linear-gradient(135deg,var(--error-400),var(--error-600));color:white;">AD
+                    </div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">Admin</div>
+                        <div class="sidebar-user-role">Administrateur</div>
+                    </div><span style="color:var(--gray-500);">⏻</span>
+                </div>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div><button class="sidebar-toggle"
+            id="sidebarToggle">☰</button>
+
+        <main class="main-wrapper">
+            <nav class="navbar">
+                <div class="navbar-left">
+                    <div class="navbar-breadcrumb"><span class="current">Administration</span></div>
+                </div>
+                <div class="navbar-right"><button class="navbar-icon-btn"><span class="badge-dot"></span>🔔</button>
+                    <div class="navbar-avatar"
+                        style="background:linear-gradient(135deg,var(--error-400),var(--error-600));">AD</div>
+                </div>
+            </nav>
+
+            <div class="page-content">
+                <div class="page-header animate-fade-in-up">
+                    <h1 class="page-title">Tableau de bord administrateur</h1>
+                    <p class="page-subtitle">Vue d'ensemble de la plateforme.</p>
+                </div>
+
+                <div class="stats-grid stagger-children">
+                    <div class="stat-card stat-blue">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon blue">👥</div><span class="stat-card-trend up">+5</span>
+                        </div>
+                        <div class="stat-card-value" id="stat-users">0</div>
+                        <div class="stat-card-label">Utilisateurs</div>
+                    </div>
+                    <div class="stat-card stat-green">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon green">🚗</div>
+                        </div>
+                        <div class="stat-card-value" id="stat-vehicles">0</div>
+                        <div class="stat-card-label">Véhicules</div>
+                    </div>
+                    <div class="stat-card stat-amber">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon amber">✅</div>
+                        </div>
+                        <div class="stat-card-value" id="stat-pending-kyc">0</div>
+                        <div class="stat-card-label">KYC en attente</div>
+                    </div>
+                    <div class="stat-card stat-red">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon red">📄</div>
+                        </div>
+                        <div class="stat-card-value" id="stat-pending-docs">0</div>
+                        <div class="stat-card-label">Docs en attente</div>
+                    </div>
+                    <div class="stat-card stat-purple">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon purple">💰</div><span class="stat-card-trend up">+20%</span>
+                        </div>
+                        <div class="stat-card-value" id="stat-revenue">0</div>
+                        <div class="stat-card-label">Revenus totaux</div>
+                    </div>
+                    <div class="stat-card stat-green">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon green">📋</div>
+                        </div>
+                        <div class="stat-card-value" id="stat-active-rentals">0</div>
+                        <div class="stat-card-label">Locations actives</div>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Activité récente</h3><a href="audit-log.html"
+                                class="btn btn-ghost btn-xs">Voir tout →</a>
+                        </div>
+                        <div id="recentActivity"></div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Nouveaux utilisateurs</h3><a href="utilisateurs.html"
+                                class="btn btn-ghost btn-xs">Voir tout →</a>
+                        </div>
+                        <div id="newUsers"></div>
+                    </div>
+                </div>
+
+                <div class="panel mt-6">
+                    <div class="panel-header">
+                        <h3 class="panel-title">Actions rapides</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="flex gap-3 flex-wrap">
+                            <a href="validation-kyc.html" class="btn btn-primary">✅ Valider des KYC</a>
+                            <a href="validation-vehicules.html" class="btn btn-secondary">🚗 Valider des véhicules</a>
+                            <a href="utilisateurs.html" class="btn btn-secondary">👥 Gérer les utilisateurs</a>
+                            <a href="audit-log.html" class="btn btn-secondary">📋 Journal d'audit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="app-footer"><span>© 2026 AutoLoc Pro</span></footer>
+        </main>
+    </div>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/vehicules.js"></script>
+    <script src="../assets/js/admin.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => { if (!requireAuth('admin')) return; loadAdminDashboard(); });</script>
+</body>
+
+</html>

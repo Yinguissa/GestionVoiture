@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrat de location - AutoLoc Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header"><a href="../../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">🚗</div>
+                    <div class="sidebar-logo-text">Auto<span>Loc</span></div>
+                </a></div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Principal</div><a href="dashboard.html"
+                        class="sidebar-link"><span class="sidebar-link-icon">📊</span> Tableau de bord</a><a
+                        href="recherche.html" class="sidebar-link"><span class="sidebar-link-icon">🔍</span>
+                        Rechercher</a><a href="favoris.html" class="sidebar-link"><span
+                            class="sidebar-link-icon">❤️</span> Favoris</a><a href="historique-locations.html"
+                        class="sidebar-link active"><span class="sidebar-link-icon">📋</span> Mes locations</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Mon compte</div><a href="profil.html" class="sidebar-link"><span
+                            class="sidebar-link-icon">👤</span> Profil</a><a href="knowyourcustumer.html"
+                        class="sidebar-link"><span class="sidebar-link-icon">✅</span> Vérification KYC</a><a
+                        href="securite.html" class="sidebar-link"><span class="sidebar-link-icon">🔒</span>
+                        Sécurité</a><a href="appareils.html" class="sidebar-link"><span
+                            class="sidebar-link-icon">📱</span> Appareils</a>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user" onclick="logout()">
+                    <div class="sidebar-user-avatar">MD</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">Utilisateur</div>
+                        <div class="sidebar-user-role">Client</div>
+                    </div><span style="color:var(--gray-500);">⏻</span>
+                </div>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div><button class="sidebar-toggle"
+            id="sidebarToggle">☰</button>
+        <main class="main-wrapper">
+            <nav class="navbar">
+                <div class="navbar-left">
+                    <div class="navbar-breadcrumb"><a href="dashboard.html">Accueil</a><span
+                            class="separator">/</span><a href="historique-locations.html">Locations</a><span
+                            class="separator">/</span><span class="current">Contrat</span></div>
+                </div>
+                <div class="navbar-right"><button class="navbar-icon-btn">🔔</button>
+                    <div class="navbar-avatar">MD</div>
+                </div>
+            </nav>
+            <div class="page-content">
+                <div id="contractContent" class="animate-fade-in-up">
+                    <div class="empty-state">
+                        <div class="animate-pulse">Chargement...</div>
+                    </div>
+                </div>
+            </div>
+            <footer class="app-footer"><span>© 2026 AutoLoc Pro</span></footer>
+        </main>
+    </div>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/vehicules.js"></script>
+    <script src="../assets/js/client.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => { if (!requireAuth('client')) return; loadContract(); });</script>
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Créez votre compte AutoLoc Pro pour louer ou mettre en location des véhicules.">
+    <title>Inscription - AutoLoc Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+    <div class="auth-layout">
+        <div class="auth-left">
+            <div class="auth-card animate-scale-in" style="max-width:500px;">
+                <div class="auth-logo">
+                    <div class="auth-logo-icon">🚗</div>
+                    <div class="auth-logo-text">Auto<span>Loc</span></div>
+                </div>
+                <h1 class="auth-title">Créer un compte</h1>
+                <p class="auth-subtitle">Rejoignez AutoLoc Pro en quelques minutes.</p>
+
+                <form id="registerForm" onsubmit="handleRegistration(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="role">Je suis un <span class="required">*</span></label>
+                        <select id="role" class="form-select" required onchange="toggleAgencyField()">
+                            <option value="client">Client - Je cherche à louer</option>
+                            <option value="proprietaire">Propriétaire / Agence - Je mets en location</option>
+                        </select>
+                    </div>
+
+                    <div id="agencyField" class="form-group hidden">
+                        <label class="form-label" for="nomAgence">Nom de l'agence</label>
+                        <input type="text" id="nomAgence" class="form-input" placeholder="Nom de votre agence">
+                    </div>
+
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+                        <div class="form-group">
+                            <label class="form-label" for="nom">Nom <span class="required">*</span></label>
+                            <input type="text" id="nom" class="form-input" placeholder="Votre nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="prenom">Prénom <span class="required">*</span></label>
+                            <input type="text" id="prenom" class="form-input" placeholder="Votre prénom" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="email">Adresse email <span class="required">*</span></label>
+                        <div class="form-input-group">
+                            <span class="input-icon">✉</span>
+                            <input type="email" id="email" class="form-input" placeholder="votre@email.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="telephone">Téléphone <span class="required">*</span></label>
+                        <div class="form-input-group">
+                            <span class="input-icon">📱</span>
+                            <input type="tel" id="telephone" class="form-input" placeholder="+224 6XX XX XX XX"
+                                required>
+                        </div>
+                    </div>
+
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+                        <div class="form-group">
+                            <label class="form-label" for="password">Mot de passe <span
+                                    class="required">*</span></label>
+                            <div class="form-input-group">
+                                <span class="input-icon">🔒</span>
+                                <input type="password" id="password" class="form-input" placeholder="Min. 8 caractères"
+                                    required>
+                                <button type="button" class="input-action"
+                                    onclick="togglePassword('password')">👁</button>
+                            </div>
+                            <div class="form-helper">Min. 8 caractères, 1 majuscule, 1 chiffre</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="confirmPassword">Confirmer <span
+                                    class="required">*</span></label>
+                            <div class="form-input-group">
+                                <span class="input-icon">🔒</span>
+                                <input type="password" id="confirmPassword" class="form-input" placeholder="Confirmez"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-check">
+                            <input type="checkbox" id="terms" required>
+                            J'accepte les <a href="#">conditions d'utilisation</a> et la <a href="#">politique de
+                                confidentialité</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">Créer mon compte</button>
+                </form>
+
+                <div class="auth-footer">
+                    Déjà un compte ? <a href="connexion.html">Se connecter</a>
+                </div>
+            </div>
+        </div>
+        <div class="auth-right">
+            <div class="auth-right-content">
+                <div style="font-size:5rem;margin-bottom:var(--space-6);">🎉</div>
+                <h2>Rejoignez-nous</h2>
+                <p>Plus de 8,500 locations réussies. Inscrivez-vous et profitez de notre plateforme professionnelle.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script>
+        function toggleAgencyField() {
+            const role = document.getElementById('role').value;
+            document.getElementById('agencyField').classList.toggle('hidden', role !== 'proprietaire');
+        }
+    </script>
+</body>
+
+</html>

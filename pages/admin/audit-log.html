@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal d'audit - AutoLoc Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header"><a href="../../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">🚗</div>
+                    <div class="sidebar-logo-text">Auto<span>Loc</span></div>
+                </a></div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Administration</div><a href="dashboard.html"
+                        class="sidebar-link"><span class="sidebar-link-icon">📊</span> Tableau de bord</a><a
+                        href="utilisateurs.html" class="sidebar-link"><span class="sidebar-link-icon">👥</span>
+                        Utilisateurs</a><a href="validation-kyc.html" class="sidebar-link"><span
+                            class="sidebar-link-icon">✅</span> Validation KYC</a><a href="validation-vehicules.html"
+                        class="sidebar-link"><span class="sidebar-link-icon">🚗</span> Validation véhicules</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Système</div><a href="liste-vehicules.html"
+                        class="sidebar-link"><span class="sidebar-link-icon">🚗</span> Tous les véhicules</a><a
+                        href="roles.html" class="sidebar-link"><span class="sidebar-link-icon">🔑</span> Rôles</a><a
+                        href="audit-log.html" class="sidebar-link active"><span class="sidebar-link-icon">📋</span>
+                        Journal d'audit</a>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user" onclick="logout()">
+                    <div class="sidebar-user-avatar"
+                        style="background:linear-gradient(135deg,var(--error-400),var(--error-600));color:white;">AD
+                    </div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">Admin</div>
+                        <div class="sidebar-user-role">Administrateur</div>
+                    </div><span style="color:var(--gray-500);">⏻</span>
+                </div>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div><button class="sidebar-toggle"
+            id="sidebarToggle">☰</button>
+        <main class="main-wrapper">
+            <nav class="navbar">
+                <div class="navbar-left">
+                    <div class="navbar-breadcrumb"><a href="dashboard.html">Admin</a><span
+                            class="separator">/</span><span class="current">Journal d'audit</span></div>
+                </div>
+                <div class="navbar-right"><button class="navbar-icon-btn">🔔</button>
+                    <div class="navbar-avatar"
+                        style="background:linear-gradient(135deg,var(--error-400),var(--error-600));">AD</div>
+                </div>
+            </nav>
+            <div class="page-content">
+                <div class="page-header">
+                    <h1 class="page-title">📋 Journal d'audit</h1>
+                    <p class="page-subtitle">Tracez toutes les actions effectuées sur la plateforme.</p>
+                </div>
+                <div class="table-wrapper animate-fade-in-up">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Action</th>
+                                <th>Utilisateur</th>
+                                <th>Détails</th>
+                                <th>IP</th>
+                            </tr>
+                        </thead>
+                        <tbody id="auditLogBody"></tbody>
+                    </table>
+                </div>
+            </div>
+            <footer class="app-footer"><span>© 2026 AutoLoc Pro</span></footer>
+        </main>
+    </div>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/admin.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => { if (!requireAuth('admin')) return; loadAuditLog(); });</script>
+</body>
+
+</html>

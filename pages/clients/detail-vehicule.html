@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détail véhicule - AutoLoc Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header"><a href="../../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">🚗</div>
+                    <div class="sidebar-logo-text">Auto<span>Loc</span></div>
+                </a></div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Principal</div>
+                    <a href="dashboard.html" class="sidebar-link"><span class="sidebar-link-icon">📊</span> Tableau de
+                        bord</a>
+                    <a href="recherche.html" class="sidebar-link active"><span class="sidebar-link-icon">🔍</span>
+                        Rechercher</a>
+                    <a href="favoris.html" class="sidebar-link"><span class="sidebar-link-icon">❤️</span> Favoris</a>
+                    <a href="historique-locations.html" class="sidebar-link"><span class="sidebar-link-icon">📋</span>
+                        Mes locations</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Mon compte</div>
+                    <a href="profil.html" class="sidebar-link"><span class="sidebar-link-icon">👤</span> Profil</a>
+                    <a href="knowyourcustumer.html" class="sidebar-link"><span class="sidebar-link-icon">✅</span>
+                        Vérification KYC</a>
+                    <a href="securite.html" class="sidebar-link"><span class="sidebar-link-icon">🔒</span> Sécurité</a>
+                    <a href="appareils.html" class="sidebar-link"><span class="sidebar-link-icon">📱</span>
+                        Appareils</a>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user" onclick="logout()">
+                    <div class="sidebar-user-avatar">MD</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">Utilisateur</div>
+                        <div class="sidebar-user-role">Client</div>
+                    </div><span style="color:var(--gray-500);">⏻</span>
+                </div>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
+        <main class="main-wrapper">
+            <nav class="navbar">
+                <div class="navbar-left">
+                    <div class="navbar-breadcrumb"><a href="dashboard.html">Accueil</a><span
+                            class="separator">/</span><a href="recherche.html">Recherche</a><span
+                            class="separator">/</span><span class="current">Détail</span></div>
+                </div>
+                <div class="navbar-right"><button class="navbar-icon-btn">🔔</button>
+                    <div class="navbar-avatar">MD</div>
+                </div>
+            </nav>
+
+            <div class="page-content" id="vehicleDetailContent">
+                <!-- Populated by JS -->
+            </div>
+            <footer class="app-footer"><span>© 2026 AutoLoc Pro</span></footer>
+        </main>
+    </div>
+
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/vehicules.js"></script>
+    <script src="../assets/js/calendrier.js"></script>
+    <script src="../assets/js/client.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!requireAuth('client')) return;
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            const vehicle = AppData.vehicules.find(v => v.id === id);
+            if (!vehicle) { document.getElementById('vehicleDetailContent').innerHTML = '<div class="empty-state"><div class="empty-state-icon">🚗</div><h3 class="empty-state-title">Véhicule non trouvé</h3><a href="recherche.html" class="btn btn-primary">Retour</a></div>'; return; }
+
+            const owner = AppData.users.find(u => u.id === vehicle.proprietaireId);
+            const isFav = AppData.favoris.includes(vehicle.id);
+
+            document.getElementById('vehicleDetailContent').innerHTML = `
+                <div class="animate-fade-in-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <a href="recherche.html" class="btn btn-ghost btn-sm">← Retour</a>
+                    </div>
+
+                    <div class="two-column" style="grid-template-columns: 1.5fr 1fr;">
+                        <!-- Left: Vehicle Info -->
+                        <div>
+                            <div class="card mb-6">
+                                <div style="height:350px;background:linear-gradient(135deg,var(--gray-100),var(--gray-200));display:flex;align-items:center;justify-content:center;border-radius:var(--radius-xl) var(--radius-xl) 0 0;position:relative;">
+                                    <div style="font-size:8rem;filter:drop-shadow(0 10px 30px rgba(0,0,0,0.1));">🚗</div>
+                                    <button class="vehicle-card-favorite ${isFav ? 'active' : ''}" style="top:var(--space-4);right:var(--space-4);" onclick="toggleFavorite('${vehicle.id}', this)">${isFav ? '❤' : '♡'}</button>
+                                    <div style="position:absolute;bottom:var(--space-4);left:var(--space-4);display:flex;gap:var(--space-2);">
+                                        <span class="badge badge-primary">${vehicle.categorie}</span>
+                                        ${vehicle.disponible ? '<span class="badge badge-success badge-dot">Disponible</span>' : '<span class="badge badge-danger">Indisponible</span>'}
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <div>
+                                            <h2>${vehicle.marque} ${vehicle.modele}</h2>
+                                            <p class="text-secondary">${vehicle.annee} · ${vehicle.couleur} · ${Format.currency(vehicle.kilometrage).replace(' FCFA', '')} km</p>
+                                        </div>
+                                        ${vehicle.rating > 0 ? `<div class="flex items-center gap-1"><span style="color:var(--accent-500);font-size:1.2rem;">⭐</span><span class="font-bold">${vehicle.rating}</span><span class="text-xs text-tertiary">(${vehicle.totalLocations} avis)</span></div>` : ''}
+                                    </div>
+                                    <p class="text-secondary mb-6">${vehicle.description}</p>
+
+                                    <h4 class="mb-3">Caractéristiques</h4>
+                                    <div class="grid grid-cols-3 gap-4 mb-6">
+                                        <div class="flex items-center gap-2"><span>⛽</span><div><div class="text-xs text-tertiary">Carburant</div><div class="text-sm font-medium">${vehicle.carburant}</div></div></div>
+                                        <div class="flex items-center gap-2"><span>⚙️</span><div><div class="text-xs text-tertiary">Transmission</div><div class="text-sm font-medium">${vehicle.transmission}</div></div></div>
+                                        <div class="flex items-center gap-2"><span>👥</span><div><div class="text-xs text-tertiary">Places</div><div class="text-sm font-medium">${vehicle.places}</div></div></div>
+                                        <div class="flex items-center gap-2"><span>❄️</span><div><div class="text-xs text-tertiary">Climatisation</div><div class="text-sm font-medium">${vehicle.climatisation ? 'Oui' : 'Non'}</div></div></div>
+                                        <div class="flex items-center gap-2"><span>📍</span><div><div class="text-xs text-tertiary">Ville</div><div class="text-sm font-medium">${vehicle.ville}</div></div></div>
+                                        <div class="flex items-center gap-2"><span>🔑</span><div><div class="text-xs text-tertiary">Immatriculation</div><div class="text-sm font-medium">${vehicle.immatriculation}</div></div></div>
+                                    </div>
+
+                                    ${owner ? `
+                                    <h4 class="mb-3">Propriétaire</h4>
+                                    <div class="flex items-center gap-3 p-4" style="background:var(--bg-secondary);border-radius:var(--radius-lg);">
+                                        <div class="avatar" style="background:${getAvatarColor(owner.prenom + owner.nom)};color:white;">${Format.initials(owner.prenom + ' ' + owner.nom)}</div>
+                                        <div>
+                                            <div class="font-medium">${owner.nomAgence || (owner.prenom + ' ' + owner.nom)}</div>
+                                            <div class="text-xs text-tertiary">Membre depuis ${Format.date(owner.dateInscription)}</div>
+                                        </div>
+                                    </div>` : ''}
+                                </div>
+                            </div>
+
+                            <!-- Availability Calendar -->
+                            <div class="panel">
+                                <div class="panel-header"><h3 class="panel-title">📅 Disponibilité</h3></div>
+                                <div class="panel-body" id="vehicleCalendar"></div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Booking -->
+                        <div>
+                            <div class="card" style="position:sticky;top:80px;">
+                                <div class="card-body">
+                                    <h3 class="mb-2">Réserver ce véhicule</h3>
+                                    <div class="flex gap-4 mb-6">
+                                        <div>
+                                            <div class="text-xs text-tertiary">Par jour</div>
+                                            <div class="text-xl font-bold" style="color:var(--primary-600);">${Format.currency(vehicle.prixJour)}</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-tertiary">Par semaine</div>
+                                            <div class="text-sm font-semibold">${Format.currency(vehicle.prixSemaine)}</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-tertiary">Par mois</div>
+                                            <div class="text-sm font-semibold">${Format.currency(vehicle.prixMois)}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Date de début</label>
+                                        <input type="date" id="dateDebut" class="form-input" onchange="updatePriceCalculation()">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Date de fin</label>
+                                        <input type="date" id="dateFin" class="form-input" onchange="updatePriceCalculation()">
+                                    </div>
+
+                                    <div id="priceCalculation" class="mb-4" style="padding:var(--space-4);background:var(--bg-secondary);border-radius:var(--radius-lg);">
+                                        <div class="text-sm text-tertiary text-center">Sélectionnez vos dates pour voir le prix</div>
+                                    </div>
+
+                                    <button class="btn btn-primary btn-block btn-lg" onclick="handleBooking('${vehicle.id}')" ${!vehicle.disponible ? 'disabled' : ''}>
+                                        ${vehicle.disponible ? '🔒 Réserver maintenant' : 'Indisponible'}
+                                    </button>
+
+                                    <div class="flex items-center justify-center gap-4 mt-4">
+                                        <span class="text-xs text-tertiary">✓ Annulation gratuite</span>
+                                        <span class="text-xs text-tertiary">✓ Paiement sécurisé</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            initDetailCalendar(vehicle.id);
+        });
+
+        function handleBooking(vehicleId) {
+            const startDate = document.getElementById('dateDebut').value;
+            const endDate = document.getElementById('dateFin').value;
+            if (!startDate || !endDate) { Toast.warning('Dates requises', 'Veuillez sélectionner les dates.'); return; }
+            if (new Date(endDate) <= new Date(startDate)) { Toast.warning('Dates invalides', 'La date de fin doit être après la date de début.'); return; }
+
+            const vehicle = AppData.vehicules.find(v => v.id === vehicleId);
+            const calc = calculateRentalPrice(vehicle, startDate, endDate);
+            const user = AppData.currentUser;
+
+            const location = {
+                id: generateId(), vehiculeId: vehicleId, clientId: user.id,
+                dateDebut: startDate, dateFin: endDate,
+                prixTotal: calc.total, statut: 'en_attente', paiement: 'en_attente',
+                createdAt: new Date().toISOString().split('T')[0]
+            };
+
+            AppData.locations.push(location);
+            saveData();
+            Toast.success('Réservation envoyée !', 'Votre demande de location a été enregistrée.');
+            setTimeout(() => { window.location.href = 'historique-locations.html'; }, 2000);
+        }
+    </script>
+</body>
+
+</html>

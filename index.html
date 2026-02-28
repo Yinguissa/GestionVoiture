@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AutoLoc Pro - Plateforme professionnelle de location et vente de véhicules. Louez ou mettez en location vos véhicules en toute confiance.">
+    <title>AutoLoc Pro - Location & Vente de Véhicules</title>
+    <link rel="stylesheet" href="pages/assets/css/style.css">
+    <link rel="stylesheet" href="pages/assets/css/layout.css">
+    <link rel="stylesheet" href="pages/assets/css/components.css">
+    <link rel="stylesheet" href="pages/assets/css/responsive.css">
+</head>
+<body>
+
+    <!-- ===== Landing Header ===== -->
+    <header class="landing-header" id="landingHeader">
+        <div class="container">
+            <a href="index.html" class="sidebar-logo">
+                <div class="sidebar-logo-icon">🚗</div>
+                <div class="sidebar-logo-text">Auto<span>Loc</span></div>
+            </a>
+            <nav class="landing-nav">
+                <a href="#features">Fonctionnalités</a>
+                <a href="#vehicles">Véhicules</a>
+                <a href="#how">Comment ça marche</a>
+                <a href="#testimonials">Avis</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <a href="pages/auth/connexion.html" class="btn btn-ghost" id="navLogin">Connexion</a>
+                <a href="pages/auth/inscription.html" class="btn btn-primary" id="navSignup">S'inscrire</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== Hero Section ===== -->
+    <section class="hero-section">
+        <div class="container flex items-center">
+            <div class="hero-content animate-fade-in-up">
+                <div class="hero-badge">🚀 Plateforme N°1 en Guinée</div>
+                <h1 class="hero-title">
+                    Louez le véhicule <span class="highlight">idéal</span> en quelques clics
+                </h1>
+                <p class="hero-description">
+                    Découvrez des milliers de véhicules disponibles à la location. 
+                    Simple, rapide et sécurisé. Propriétaires, rentabilisez votre flotte.
+                </p>
+                <div class="hero-actions">
+                    <a href="pages/auth/inscription.html" class="btn btn-primary btn-xl">
+                        Commencer maintenant →
+                    </a>
+                    <a href="#how" class="btn btn-secondary btn-xl">
+                        En savoir plus
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div>
+                        <div class="hero-stat-number">1,200+</div>
+                        <div class="hero-stat-label">Véhicules</div>
+                    </div>
+                    <div>
+                        <div class="hero-stat-number">8,500+</div>
+                        <div class="hero-stat-label">Locations réussies</div>
+                    </div>
+                    <div>
+                        <div class="hero-stat-number">4.8</div>
+                        <div class="hero-stat-label">Note moyenne</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image animate-fade-in" style="animation-delay: 0.3s;">
+                <div style="width:500px;height:400px;background:linear-gradient(135deg, var(--primary-100), var(--accent-100));border-radius:var(--radius-2xl);display:flex;align-items:center;justify-content:center;position:relative;">
+                    <div style="font-size:8rem;filter:drop-shadow(0 10px 30px rgba(0,0,0,0.1));">🚗</div>
+                    <div style="position:absolute;top:20px;right:20px;background:white;padding:12px 16px;border-radius:12px;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:8px;" class="animate-float">
+                        <span style="color:var(--success-500);font-size:1.2rem;">✓</span>
+                        <span class="font-semibold text-sm">Réservation confirmée</span>
+                    </div>
+                    <div style="position:absolute;bottom:30px;left:20px;background:white;padding:12px 16px;border-radius:12px;box-shadow:var(--shadow-lg);" class="animate-float" id="floatingCard">
+                        <div class="text-xs text-tertiary">Prix moyen/jour</div>
+                        <div class="font-bold" style="color:var(--primary-600);">250,000 FCFA</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Features Section ===== -->
+    <section class="section" id="features" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">✨ Fonctionnalités</div>
+                <h2 class="section-title">Tout ce qu'il vous faut pour louer</h2>
+                <p class="section-subtitle">AutoLoc Pro offre une plateforme complète pour les clients et les propriétaires de véhicules.</p>
+            </div>
+            <div class="grid grid-cols-3 gap-6 stagger-children">
+                <div class="card">
+                    <div class="card-body" style="text-align:center; padding:var(--space-8);">
+                        <div style="font-size:2.5rem; margin-bottom:var(--space-4);">🔍</div>
+                        <h4 style="margin-bottom:var(--space-3);">Recherche avancée</h4>
+                        <p class="text-sm">Trouvez le véhicule parfait grâce à nos filtres intelligents : marque, prix, catégorie, et plus.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body" style="text-align:center; padding:var(--space-8);">
+                        <div style="font-size:2.5rem; margin-bottom:var(--space-4);">🔒</div>
+                        <h4 style="margin-bottom:var(--space-3);">Paiement sécurisé</h4>
+                        <p class="text-sm">Transactions sécurisées avec suivi en temps réel. Contrats numériques pour votre protection.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body" style="text-align:center; padding:var(--space-8);">
+                        <div style="font-size:2.5rem; margin-bottom:var(--space-4);">📊</div>
+                        <h4 style="margin-bottom:var(--space-3);">Tableau de bord</h4>
+                        <p class="text-sm">Suivez vos locations, revenus et statistiques depuis un tableau de bord intuitif.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body" style="text-align:center; padding:var(--space-8);">
+                        <div style="font-size:2.5rem; margin-bottom:var(--space-4);">📅</div>
+                        <h4 style="margin-bottom:var(--space-3);">Calendrier interactif</h4>
+                        <p class="text-sm">Gérez les disponibilités de vos véhicules avec un calendrier dynamique et intuitif.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body" style="text-align:center; padding:var(--space-8);">
+                        <div style="font-size:2.5rem; margin-bottom:var(--space-4);">✅</div>
+                        <h4 style="margin-bottom:var(--space-3);">Vérification KYC</h4>
+                        <p class="text-sm">Identité vérifiée pour chaque utilisateur garantissant confiance et sécurité.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body" style="text-align:center; padding:var(--space-8);">
+                        <div style="font-size:2.5rem; margin-bottom:var(--space-4);">📱</div>
+                        <h4 style="margin-bottom:var(--space-3);">100% Responsive</h4>
+                        <p class="text-sm">Accédez à la plateforme depuis votre mobile, tablette ou ordinateur sans compromis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== How It Works ===== -->
+    <section class="section" id="how">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">📋 Processus</div>
+                <h2 class="section-title">Comment ça marche ?</h2>
+                <p class="section-subtitle">En 3 étapes simples, louez ou mettez en location votre véhicule.</p>
+            </div>
+            <div class="grid grid-cols-3 gap-8 stagger-children">
+                <div style="text-align:center;">
+                    <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--primary-500),var(--primary-700));color:white;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:bold;margin:0 auto var(--space-6);box-shadow:0 8px 24px rgba(37,99,235,0.3);">1</div>
+                    <h4 style="margin-bottom:var(--space-3);">Créez votre compte</h4>
+                    <p class="text-sm text-secondary">Inscription rapide avec vérification d'identité pour une expérience sécurisée.</p>
+                </div>
+                <div style="text-align:center;">
+                    <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--accent-500),var(--accent-700));color:white;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:bold;margin:0 auto var(--space-6);box-shadow:0 8px 24px rgba(245,158,11,0.3);">2</div>
+                    <h4 style="margin-bottom:var(--space-3);">Choisissez votre véhicule</h4>
+                    <p class="text-sm text-secondary">Parcourez notre catalogue et trouvez le véhicule qui correspond à vos besoins.</p>
+                </div>
+                <div style="text-align:center;">
+                    <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--success-500),#047857);color:white;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:bold;margin:0 auto var(--space-6);box-shadow:0 8px 24px rgba(16,185,129,0.3);">3</div>
+                    <h4 style="margin-bottom:var(--space-3);">Roulez !</h4>
+                    <p class="text-sm text-secondary">Confirmez votre réservation, signez le contrat numérique et récupérez les clés.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Vehicles Preview ===== -->
+    <section class="section" id="vehicles" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">🚗 Catalogue</div>
+                <h2 class="section-title">Véhicules populaires</h2>
+                <p class="section-subtitle">Découvrez nos véhicules les plus demandés.</p>
+            </div>
+            <div class="content-grid stagger-children" id="landingVehicles"></div>
+            <div style="text-align:center;margin-top:var(--space-8);">
+                <a href="pages/auth/inscription.html" class="btn btn-primary btn-lg">Voir tous les véhicules →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Testimonials ===== -->
+    <section class="section" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">💬 Témoignages</div>
+                <h2 class="section-title">Ils nous font confiance</h2>
+            </div>
+            <div class="grid grid-cols-3 gap-6 stagger-children">
+                <div class="card">
+                    <div class="card-body" style="padding:var(--space-8);">
+                        <div style="color:var(--accent-500);font-size:1.5rem;margin-bottom:var(--space-3);">⭐⭐⭐⭐⭐</div>
+                        <p class="text-sm text-secondary" style="margin-bottom:var(--space-4);">"Service excellent ! J'ai loué un Toyota Land Cruiser pour un voyage à Labé. Tout était parfait du début à la fin."</p>
+                        <div class="flex items-center gap-3">
+                            <div class="avatar" style="background:linear-gradient(135deg,var(--primary-400),var(--primary-600));color:white;">MD</div>
+                            <div>
+                                <div class="font-semibold text-sm">Mamadou Diallo</div>
+                                <div class="text-xs text-tertiary">Client depuis 2025</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body" style="padding:var(--space-8);">
+                        <div style="color:var(--accent-500);font-size:1.5rem;margin-bottom:var(--space-3);">⭐⭐⭐⭐⭐</div>
+                        <p class="text-sm text-secondary" style="margin-bottom:var(--space-4);">"En tant que propriétaire, AutoLoc m'a permis de rentabiliser ma flotte. L'interface de gestion est très intuitive."</p>
+                        <div class="flex items-center gap-3">
+                            <div class="avatar" style="background:linear-gradient(135deg,var(--success-500),#059669);color:white;">IB</div>
+                            <div>
+                                <div class="font-semibold text-sm">Ibrahima Bah</div>
+                                <div class="text-xs text-tertiary">Propriétaire · Bah Auto</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body" style="padding:var(--space-8);">
+                        <div style="color:var(--accent-500);font-size:1.5rem;margin-bottom:var(--space-3);">⭐⭐⭐⭐⭐</div>
+                        <p class="text-sm text-secondary" style="margin-bottom:var(--space-4);">"La vérification KYC m'a mis en confiance. Je sais que mes véhicules sont entre de bonnes mains."</p>
+                        <div class="flex items-center gap-3">
+                            <div class="avatar" style="background:linear-gradient(135deg,var(--accent-400),var(--accent-600));color:white;">AC</div>
+                            <div>
+                                <div class="font-semibold text-sm">Aissatou Camara</div>
+                                <div class="text-xs text-tertiary">Cliente depuis 2025</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA Section ===== -->
+    <section class="section" style="background:linear-gradient(135deg, var(--primary-600), var(--primary-900)); color:white;">
+        <div class="container" style="text-align:center;">
+            <h2 style="color:white;font-size:var(--font-size-4xl);margin-bottom:var(--space-4);">Prêt à commencer ?</h2>
+            <p style="color:rgba(255,255,255,0.8);font-size:var(--font-size-lg);margin-bottom:var(--space-8);max-width:600px;margin-left:auto;margin-right:auto;">
+                Rejoignez des milliers d'utilisateurs qui font confiance à AutoLoc Pro pour leurs besoins de mobilité.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="pages/auth/inscription.html" class="btn btn-accent btn-xl">Créer un compte gratuit</a>
+                <a href="pages/auth/connexion.html" class="btn btn-xl" style="background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3);">Se connecter</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer class="landing-footer">
+        <div class="container">
+            <div class="landing-footer-grid">
+                <div>
+                    <div class="sidebar-logo" style="margin-bottom:var(--space-4);">
+                        <div class="sidebar-logo-icon">🚗</div>
+                        <div class="sidebar-logo-text" style="color:white;">Auto<span>Loc</span></div>
+                    </div>
+                    <p class="text-sm" style="max-width:300px;margin-bottom:var(--space-4);">
+                        La plateforme de référence pour la location de véhicules en Guinée. Simple, sécurisé, professionnel.
+                    </p>
+                </div>
+                <div>
+                    <h4>Plateforme</h4>
+                    <a href="#features">Fonctionnalités</a>
+                    <a href="#vehicles">Véhicules</a>
+                    <a href="#how">Comment ça marche</a>
+                    <a href="#testimonials">Témoignages</a>
+                </div>
+                <div>
+                    <h4>Entreprise</h4>
+                    <a href="#">À propos</a>
+                    <a href="#">Carrières</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div>
+                    <h4>Légal</h4>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="#">Politique de confidentialité</a>
+                    <a href="#">CGV</a>
+                </div>
+            </div>
+            <div class="landing-footer-bottom">
+                <p>© 2026 AutoLoc Pro. Tous droits réservés.</p>
+                <div class="flex gap-4">
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="pages/assets/js/utils.js"></script>
+    <script src="pages/assets/js/app.js"></script>
+    <script src="pages/assets/js/vehicules.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load popular vehicles on landing
+            const grid = document.getElementById('landingVehicles');
+            if (grid) {
+                const popular = getFilteredVehicles({ sort: 'populaire' }).slice(0, 6);
+                grid.innerHTML = popular.map(v => renderVehicleCard(v, false)).join('');
+            }
+
+            // Check if user is already logged in
+            const user = Storage.get('currentUser');
+            if (user) {
+                const loginBtn = document.getElementById('navLogin');
+                const signupBtn = document.getElementById('navSignup');
+                if (loginBtn) loginBtn.textContent = 'Mon espace';
+                if (loginBtn) loginBtn.href = getDashboardPath(user.role);
+                if (signupBtn) signupBtn.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réinitialisation du mot de passe - AutoLoc Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+    <div class="auth-layout">
+        <div class="auth-left">
+            <div class="auth-card animate-scale-in">
+                <div class="auth-logo">
+                    <div class="auth-logo-icon">🚗</div>
+                    <div class="auth-logo-text">Auto<span>Loc</span></div>
+                </div>
+                <h1 class="auth-title">Nouveau mot de passe</h1>
+                <p class="auth-subtitle">Créez un nouveau mot de passe sécurisé pour votre compte.</p>
+
+                <form id="resetForm" onsubmit="handleResetPassword(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="password">Nouveau mot de passe <span
+                                class="required">*</span></label>
+                        <div class="form-input-group">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="password" class="form-input" placeholder="Min. 8 caractères"
+                                required>
+                            <button type="button" class="input-action" onclick="togglePassword('password')">👁</button>
+                        </div>
+                        <div class="form-helper">Min. 8 caractères, 1 majuscule, 1 chiffre</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="confirmPassword">Confirmer le mot de passe <span
+                                class="required">*</span></label>
+                        <div class="form-input-group">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="confirmPassword" class="form-input"
+                                placeholder="Confirmez le mot de passe" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">Réinitialiser</button>
+                </form>
+
+                <div class="auth-footer">
+                    <a href="connexion.html">← Retour à la connexion</a>
+                </div>
+            </div>
+        </div>
+        <div class="auth-right">
+            <div class="auth-right-content">
+                <div style="font-size:5rem;margin-bottom:var(--space-6);">🔐</div>
+                <h2>Nouveau départ</h2>
+                <p>Choisissez un mot de passe sûr et unique. Utilisez au moins 8 caractères avec des lettres majuscules
+                    et des chiffres.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/auth.js"></script>
+</body>
+
+</html>

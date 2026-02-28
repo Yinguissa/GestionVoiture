@@ -1,0 +1,364 @@
+/* ============================================
+   AutoLoc Pro - Responsive Design
+   Mobile-First Breakpoints
+   ============================================ */
+
+/* ---- Small Mobile (max 480px) ---- */
+@media (max-width: 480px) {
+    :root {
+        --space-6: 1rem;
+        --space-8: 1.5rem;
+    }
+
+    h1 {
+        font-size: var(--font-size-2xl);
+    }
+
+    h2 {
+        font-size: var(--font-size-xl);
+    }
+
+    h3 {
+        font-size: var(--font-size-lg);
+    }
+
+    .page-content {
+        padding: var(--space-4);
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-group {
+        width: 100%;
+    }
+
+    .filter-select,
+    .search-input {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .steps {
+        flex-direction: column;
+        gap: var(--space-3);
+    }
+
+    .step-line {
+        width: 2px;
+        height: 20px;
+    }
+
+    .toast-container {
+        left: var(--space-4);
+        right: var(--space-4);
+    }
+
+    .toast {
+        min-width: unset;
+        max-width: 100%;
+    }
+
+    .modal {
+        margin: var(--space-4);
+    }
+
+    .auth-card {
+        padding: var(--space-6);
+    }
+
+    .calendar-day {
+        min-height: 50px;
+        padding: var(--space-2);
+    }
+
+    .calendar-event {
+        display: none;
+    }
+}
+
+/* ---- Mobile (max 768px) ---- */
+@media (max-width: 768px) {
+
+    /* Sidebar hidden by default on mobile */
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .sidebar-toggle {
+        display: flex;
+    }
+
+    .sidebar-overlay {
+        display: none;
+    }
+
+    .sidebar-overlay.active {
+        display: block;
+    }
+
+    .main-wrapper {
+        margin-left: 0;
+    }
+
+    /* Auth layout stacked */
+    .auth-layout {
+        flex-direction: column;
+    }
+
+    .auth-right {
+        display: none;
+    }
+
+    .auth-left {
+        padding: var(--space-6);
+    }
+
+    .auth-card {
+        max-width: 100%;
+    }
+
+    /* Navbar adjustments */
+    .navbar {
+        padding: 0 var(--space-4);
+    }
+
+    .navbar-search {
+        display: none;
+    }
+
+    .navbar-breadcrumb {
+        display: none;
+    }
+
+    /* Grid adjustments */
+    .two-column,
+    .three-column {
+        grid-template-columns: 1fr;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Landing page */
+    .hero-section .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .hero-description {
+        max-width: 100%;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .hero-stats {
+        justify-content: center;
+        gap: var(--space-6);
+    }
+
+    .hero-image {
+        margin-top: var(--space-8);
+    }
+
+    .landing-nav {
+        display: none;
+    }
+
+    .landing-footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-8);
+    }
+
+    .landing-footer-bottom {
+        flex-direction: column;
+        gap: var(--space-4);
+        text-align: center;
+    }
+
+    /* Tables responsive */
+    .table-wrapper {
+        border-radius: var(--radius-lg);
+    }
+
+    .data-table {
+        font-size: var(--font-size-xs);
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: var(--space-3);
+    }
+
+    /* Page header */
+    .page-header-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    /* Calendar */
+    .calendar-day-header {
+        font-size: 10px;
+        padding: var(--space-2);
+    }
+
+    /* Pagination */
+    .pagination {
+        flex-direction: column;
+        gap: var(--space-3);
+    }
+
+    /* Panel */
+    .panel-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-3);
+    }
+
+    /* Vehicle card */
+    .vehicle-card-specs {
+        flex-wrap: wrap;
+        gap: var(--space-3);
+    }
+
+    /* Section */
+    .section {
+        padding: var(--space-12) 0;
+    }
+
+    .section-header {
+        margin-bottom: var(--space-8);
+    }
+
+    /* Pill tabs scroll */
+    .pill-tabs {
+        width: 100%;
+        overflow-x: auto;
+    }
+}
+
+/* ---- Tablet (max 1024px) ---- */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 240px;
+    }
+
+    .main-wrapper {
+        margin-left: 240px;
+    }
+
+    .three-column {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .landing-footer-grid {
+        grid-template-columns: 2fr 1fr 1fr;
+    }
+
+    .page-content {
+        padding: var(--space-6);
+    }
+}
+
+/* ---- Desktop (min 1025px) ---- */
+@media (min-width: 1025px) {
+    .sidebar-toggle {
+        display: none;
+    }
+
+    .sidebar-overlay {
+        display: none !important;
+    }
+}
+
+/* ---- Large Desktop (min 1440px) ---- */
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1400px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .content-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ---- Print Styles ---- */
+@media print {
+
+    .sidebar,
+    .navbar,
+    .sidebar-toggle,
+    .btn,
+    .toast-container {
+        display: none !important;
+    }
+
+    .main-wrapper {
+        margin-left: 0;
+    }
+
+    .page-content {
+        padding: 0;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .card,
+    .panel {
+        border: 1px solid #ccc;
+        box-shadow: none;
+    }
+}
+
+/* ---- Reduced Motion ---- */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .stagger-children>* {
+        animation: none;
+        opacity: 1;
+    }
+}

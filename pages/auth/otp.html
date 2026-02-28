@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vérification OTP - AutoLoc Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <style>
+        .otp-group {
+            display: flex;
+            gap: var(--space-3);
+            justify-content: center;
+            margin: var(--space-8) 0;
+        }
+
+        .otp-input {
+            width: 56px;
+            height: 64px;
+            text-align: center;
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all var(--transition-fast);
+        }
+
+        .otp-input:focus {
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px var(--primary-100);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-layout">
+        <div class="auth-left">
+            <div class="auth-card animate-scale-in" style="text-align:center;">
+                <div class="auth-logo" style="justify-content:center;">
+                    <div class="auth-logo-icon">🚗</div>
+                    <div class="auth-logo-text">Auto<span>Loc</span></div>
+                </div>
+                <div style="font-size:3rem;margin-bottom:var(--space-4);">📧</div>
+                <h1 class="auth-title">Vérification OTP</h1>
+                <p class="auth-subtitle">Un code de vérification a été envoyé à votre adresse email. Entrez le code
+                    ci-dessous.</p>
+
+                <form id="otpForm" onsubmit="handleOTP(event)">
+                    <div class="otp-group">
+                        <input type="text" maxlength="1" class="otp-input" inputmode="numeric" pattern="[0-9]" required>
+                        <input type="text" maxlength="1" class="otp-input" inputmode="numeric" pattern="[0-9]" required>
+                        <input type="text" maxlength="1" class="otp-input" inputmode="numeric" pattern="[0-9]" required>
+                        <input type="text" maxlength="1" class="otp-input" inputmode="numeric" pattern="[0-9]" required>
+                        <input type="text" maxlength="1" class="otp-input" inputmode="numeric" pattern="[0-9]" required>
+                        <input type="text" maxlength="1" class="otp-input" inputmode="numeric" pattern="[0-9]" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">Vérifier</button>
+                </form>
+
+                <div class="auth-footer" style="margin-top:var(--space-6);">
+                    <p class="text-sm text-secondary">Vous n'avez pas reçu le code ?</p>
+                    <button class="btn btn-ghost btn-sm" onclick="resendOTP()"
+                        style="margin-top:var(--space-2);">Renvoyer le code</button>
+                </div>
+
+                <div style="margin-top:var(--space-4);">
+                    <a href="connexion.html" class="text-sm">← Retour à la connexion</a>
+                </div>
+            </div>
+        </div>
+        <div class="auth-right">
+            <div class="auth-right-content">
+                <div style="font-size:5rem;margin-bottom:var(--space-6);">🔐</div>
+                <h2>Vérification sécurisée</h2>
+                <p>Nous vérifions votre identité pour protéger votre compte. Le code est valide pendant 10 minutes.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', initOTPInputs);</script>
+</body>
+
+</html>

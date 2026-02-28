@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon profil - AutoLoc Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header"><a href="../../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">🚗</div>
+                    <div class="sidebar-logo-text">Auto<span>Loc</span></div>
+                </a></div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Principal</div><a href="dashboard.html"
+                        class="sidebar-link"><span class="sidebar-link-icon">📊</span> Tableau de bord</a><a
+                        href="recherche.html" class="sidebar-link"><span class="sidebar-link-icon">🔍</span>
+                        Rechercher</a><a href="favoris.html" class="sidebar-link"><span
+                            class="sidebar-link-icon">❤️</span> Favoris</a><a href="historique-locations.html"
+                        class="sidebar-link"><span class="sidebar-link-icon">📋</span> Mes locations</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Mon compte</div><a href="profil.html"
+                        class="sidebar-link active"><span class="sidebar-link-icon">👤</span> Profil</a><a
+                        href="knowyourcustumer.html" class="sidebar-link"><span class="sidebar-link-icon">✅</span>
+                        Vérification KYC</a><a href="securite.html" class="sidebar-link"><span
+                            class="sidebar-link-icon">🔒</span> Sécurité</a><a href="appareils.html"
+                        class="sidebar-link"><span class="sidebar-link-icon">📱</span> Appareils</a>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user" onclick="logout()">
+                    <div class="sidebar-user-avatar">MD</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">Utilisateur</div>
+                        <div class="sidebar-user-role">Client</div>
+                    </div><span style="color:var(--gray-500);">⏻</span>
+                </div>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div><button class="sidebar-toggle"
+            id="sidebarToggle">☰</button>
+        <main class="main-wrapper">
+            <nav class="navbar">
+                <div class="navbar-left">
+                    <div class="navbar-breadcrumb"><a href="dashboard.html">Accueil</a><span
+                            class="separator">/</span><span class="current">Profil</span></div>
+                </div>
+                <div class="navbar-right"><button class="navbar-icon-btn">🔔</button>
+                    <div class="navbar-avatar">MD</div>
+                </div>
+            </nav>
+            <div class="page-content">
+                <div class="page-header">
+                    <h1 class="page-title">Mon profil</h1>
+                    <p class="page-subtitle">Gérez vos informations personnelles.</p>
+                </div>
+                <div class="card animate-fade-in-up">
+                    <div class="card-body"
+                        style="display:flex;align-items:center;gap:var(--space-6);padding:var(--space-8);">
+                        <div class="avatar avatar-xl" id="profileAvatar"
+                            style="background:linear-gradient(135deg,var(--primary-400),var(--accent-400));color:white;">
+                            MD</div>
+                        <div>
+                            <h3 id="profileName">Chargement...</h3>
+                            <p class="text-secondary" id="profileEmail"></p>
+                            <div class="flex gap-2 mt-2"><span class="badge badge-primary"
+                                    id="profileRole">Client</span><span id="profileKYC"></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-6 animate-fade-in-up" style="animation-delay:0.1s;">
+                    <div class="card-header">
+                        <h3 class="panel-title">Informations personnelles</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="profileForm" onsubmit="handleProfileUpdate(event)">
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+                                <div class="form-group"><label class="form-label">Nom</label><input type="text" id="nom"
+                                        class="form-input"></div>
+                                <div class="form-group"><label class="form-label">Prénom</label><input type="text"
+                                        id="prenom" class="form-input"></div>
+                                <div class="form-group"><label class="form-label">Email</label><input type="email"
+                                        id="email" class="form-input" disabled></div>
+                                <div class="form-group"><label class="form-label">Téléphone</label><input type="tel"
+                                        id="telephone" class="form-input"></div>
+                                <div class="form-group"><label class="form-label">Ville</label><input type="text"
+                                        id="ville" class="form-input" placeholder="Votre ville"></div>
+                                <div class="form-group"><label class="form-label">Adresse</label><input type="text"
+                                        id="adresse" class="form-input" placeholder="Votre adresse"></div>
+                            </div>
+                            <div style="text-align:right;margin-top:var(--space-4);"><button type="submit"
+                                    class="btn btn-primary">💾 Sauvegarder les modifications</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <footer class="app-footer"><span>© 2026 AutoLoc Pro</span></footer>
+        </main>
+    </div>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/client.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!requireAuth('client')) return;
+            const u = AppData.currentUser;
+            document.getElementById('nom').value = u.nom;
+            document.getElementById('prenom').value = u.prenom;
+            document.getElementById('email').value = u.email;
+            document.getElementById('telephone').value = u.telephone;
+            document.getElementById('ville').value = u.ville || '';
+            document.getElementById('adresse').value = u.adresse || '';
+            document.getElementById('profileName').textContent = u.prenom + ' ' + u.nom;
+            document.getElementById('profileEmail').textContent = u.email;
+            document.getElementById('profileAvatar').textContent = Format.initials(u.prenom + ' ' + u.nom);
+            document.getElementById('profileAvatar').style.background = getAvatarColor(u.prenom + u.nom);
+            document.getElementById('profileKYC').outerHTML = getStatusBadge(u.kyc);
+        });
+    </script>
+</body>
+
+</html>

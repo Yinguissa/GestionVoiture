@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Connectez-vous à AutoLoc Pro pour gérer vos locations de véhicules.">
+    <title>Connexion - AutoLoc Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+    <div class="auth-layout">
+        <div class="auth-left">
+            <div class="auth-card animate-scale-in">
+                <div class="auth-logo">
+                    <div class="auth-logo-icon">🚗</div>
+                    <div class="auth-logo-text">Auto<span>Loc</span></div>
+                </div>
+                <h1 class="auth-title">Connexion</h1>
+                <p class="auth-subtitle">Bienvenue ! Connectez-vous à votre compte.</p>
+
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="email">Adresse email</label>
+                        <div class="form-input-group">
+                            <span class="input-icon">✉</span>
+                            <input type="email" id="email" class="form-input" placeholder="votre@email.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">
+                            Mot de passe
+                            <a href="mot-de-passe-oublie.html"
+                                style="float:right;font-weight:normal;font-size:var(--font-size-xs);">Mot de passe
+                                oublié ?</a>
+                        </label>
+                        <div class="form-input-group">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="password" class="form-input" placeholder="Votre mot de passe"
+                                required>
+                            <button type="button" class="input-action" onclick="togglePassword('password')">👁</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-check">
+                            <input type="checkbox" id="remember">
+                            Se souvenir de moi
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">Se connecter</button>
+                </form>
+
+                <div class="auth-divider">ou</div>
+
+                <div style="margin-bottom:var(--space-4);">
+                    <p class="text-xs text-tertiary text-center mb-2">Comptes de démonstration :</p>
+                    <div class="flex gap-2" style="flex-wrap:wrap;">
+                        <button class="btn btn-secondary btn-xs" style="flex:1;"
+                            onclick="fillDemo('mamadou@email.com','Test1234')">👤 Client</button>
+                        <button class="btn btn-secondary btn-xs" style="flex:1;"
+                            onclick="fillDemo('ibrahima@email.com','Test1234')">🏢 Propriétaire</button>
+                        <button class="btn btn-secondary btn-xs" style="flex:1;"
+                            onclick="fillDemo('admin@autoloc.com','Admin1234')">⚙️ Admin</button>
+                    </div>
+                </div>
+
+                <div class="auth-footer">
+                    Pas encore de compte ? <a href="inscription.html">S'inscrire</a>
+                </div>
+            </div>
+        </div>
+        <div class="auth-right">
+            <div class="auth-right-content">
+                <div style="font-size:5rem;margin-bottom:var(--space-6);">🚗</div>
+                <h2>Bienvenue sur AutoLoc Pro</h2>
+                <p>La plateforme de référence pour la location de véhicules en Guinée. Gérez vos locations en toute
+                    simplicité.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script>
+        function fillDemo(email, password) {
+            document.getElementById('email').value = email;
+            document.getElementById('password').value = password;
+        }
+    </script>
+</body>
+
+</html>

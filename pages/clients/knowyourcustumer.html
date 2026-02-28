@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vérification KYC - AutoLoc Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header"><a href="../../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">🚗</div>
+                    <div class="sidebar-logo-text">Auto<span>Loc</span></div>
+                </a></div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Principal</div><a href="dashboard.html"
+                        class="sidebar-link"><span class="sidebar-link-icon">📊</span> Tableau de bord</a><a
+                        href="recherche.html" class="sidebar-link"><span class="sidebar-link-icon">🔍</span>
+                        Rechercher</a><a href="favoris.html" class="sidebar-link"><span
+                            class="sidebar-link-icon">❤️</span> Favoris</a><a href="historique-locations.html"
+                        class="sidebar-link"><span class="sidebar-link-icon">📋</span> Mes locations</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Mon compte</div><a href="profil.html" class="sidebar-link"><span
+                            class="sidebar-link-icon">👤</span> Profil</a><a href="knowyourcustumer.html"
+                        class="sidebar-link active"><span class="sidebar-link-icon">✅</span> Vérification KYC</a><a
+                        href="securite.html" class="sidebar-link"><span class="sidebar-link-icon">🔒</span>
+                        Sécurité</a><a href="appareils.html" class="sidebar-link"><span
+                            class="sidebar-link-icon">📱</span> Appareils</a>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user" onclick="logout()">
+                    <div class="sidebar-user-avatar">MD</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">Utilisateur</div>
+                        <div class="sidebar-user-role">Client</div>
+                    </div><span style="color:var(--gray-500);">⏻</span>
+                </div>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div><button class="sidebar-toggle"
+            id="sidebarToggle">☰</button>
+        <main class="main-wrapper">
+            <nav class="navbar">
+                <div class="navbar-left">
+                    <div class="navbar-breadcrumb"><a href="dashboard.html">Accueil</a><span
+                            class="separator">/</span><span class="current">Vérification KYC</span></div>
+                </div>
+                <div class="navbar-right"><button class="navbar-icon-btn">🔔</button>
+                    <div class="navbar-avatar">MD</div>
+                </div>
+            </nav>
+            <div class="page-content">
+                <div class="page-header">
+                    <h1 class="page-title">✅ Vérification d'identité (KYC)</h1>
+                    <p class="page-subtitle">Vérifiez votre identité pour accéder à toutes les fonctionnalités.</p>
+                </div>
+
+                <div class="alert alert-info mb-6 animate-fade-in-up">
+                    <span class="alert-icon">ℹ️</span>
+                    <div>La vérification KYC est obligatoire pour louer un véhicule. Vos documents seront traités de
+                        manière confidentielle.</div>
+                </div>
+
+                <div class="card animate-fade-in-up mb-6">
+                    <div class="card-header">
+                        <h3 class="panel-title">Statut de vérification</h3><span id="kycStatus"></span>
+                    </div>
+                    <div class="card-body">
+                        <div class="steps mb-6">
+                            <div class="step" id="step-identity">
+                                <div class="step-circle">1</div><span class="step-label">Identité</span>
+                            </div>
+                            <div class="step-line"></div>
+                            <div class="step" id="step-document">
+                                <div class="step-circle">2</div><span class="step-label">Document</span>
+                            </div>
+                            <div class="step-line"></div>
+                            <div class="step" id="step-validation">
+                                <div class="step-circle">3</div><span class="step-label">Validation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card animate-fade-in-up" style="animation-delay:0.1s;" id="kycFormCard">
+                    <div class="card-header">
+                        <h3 class="panel-title">Soumettre vos documents</h3>
+                    </div>
+                    <div class="card-body">
+                        <form onsubmit="handleKYCSubmit(event)">
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+                                <div class="form-group"><label class="form-label">Type de document <span
+                                            class="required">*</span></label>
+                                    <select id="typeDocument" class="form-select" required>
+                                        <option value="">Sélectionner...</option>
+                                        <option value="cni">Carte Nationale d'Identité</option>
+                                        <option value="passeport">Passeport</option>
+                                        <option value="permis">Permis de conduire</option>
+                                    </select>
+                                </div>
+                                <div class="form-group"><label class="form-label">Numéro du document <span
+                                            class="required">*</span></label><input type="text" id="numDocument"
+                                        class="form-input" placeholder="N° du document" required></div>
+                            </div>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+                                <div class="form-group"><label class="form-label">Recto du document</label>
+                                    <div class="file-upload" style="padding:var(--space-6);"><input type="file"
+                                            accept=".jpg,.png,.pdf" style="display:none;">
+                                        <div class="file-upload-icon">📄</div>
+                                        <div class="file-upload-text"><strong>Cliquez</strong> ou déposez le fichier
+                                            recto</div>
+                                        <div class="file-upload-hint">JPG, PNG ou PDF - Max 5MB</div>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="form-label">Verso du document</label>
+                                    <div class="file-upload" style="padding:var(--space-6);"><input type="file"
+                                            accept=".jpg,.png,.pdf" style="display:none;">
+                                        <div class="file-upload-icon">📄</div>
+                                        <div class="file-upload-text"><strong>Cliquez</strong> ou déposez le fichier
+                                            verso</div>
+                                        <div class="file-upload-hint">JPG, PNG ou PDF - Max 5MB</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group"><label class="form-label">Selfie avec le document</label>
+                                <div class="file-upload" style="padding:var(--space-6);"><input type="file"
+                                        accept=".jpg,.png" style="display:none;">
+                                    <div class="file-upload-icon">📸</div>
+                                    <div class="file-upload-text"><strong>Prenez un selfie</strong> en tenant votre
+                                        document</div>
+                                    <div class="file-upload-hint">JPG ou PNG - Max 5MB</div>
+                                </div>
+                            </div>
+                            <div style="text-align:right;margin-top:var(--space-4);"><button type="submit"
+                                    class="btn btn-primary btn-lg">Soumettre pour vérification</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <footer class="app-footer"><span>© 2026 AutoLoc Pro</span></footer>
+        </main>
+    </div>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/client.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!requireAuth('client')) return;
+            const u = AppData.currentUser;
+            document.getElementById('kycStatus').outerHTML = getStatusBadge(u.kyc);
+            // Update step indicators based on KYC status
+            const s1 = document.getElementById('step-identity');
+            const s2 = document.getElementById('step-document');
+            const s3 = document.getElementById('step-validation');
+            if (u.kyc === 'valide') { s1.classList.add('completed'); s2.classList.add('completed'); s3.classList.add('completed'); document.getElementById('kycFormCard').innerHTML = '<div class="card-body"><div class="empty-state"><div class="empty-state-icon">✅</div><h3 class="empty-state-title">Identité vérifiée</h3><p class="empty-state-description">Votre identité a été vérifiée avec succès.</p></div></div>'; }
+            else if (u.kyc === 'en_attente') { s1.classList.add('completed'); s2.classList.add('completed'); s3.classList.add('active'); }
+            else if (u.kyc === 'refuse') { s1.classList.add('completed'); s2.classList.add('completed'); }
+            else { s1.classList.add('active'); }
+            initFileUploads();
+        });
+    </script>
+</body>
+
+</html>

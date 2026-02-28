@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord - AutoLoc Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">🚗</div>
+                    <div class="sidebar-logo-text">Auto<span>Loc</span></div>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Principal</div>
+                    <a href="dashboard.html" class="sidebar-link active">
+                        <span class="sidebar-link-icon">📊</span> Tableau de bord
+                    </a>
+                    <a href="recherche.html" class="sidebar-link">
+                        <span class="sidebar-link-icon">🔍</span> Rechercher
+                    </a>
+                    <a href="favoris.html" class="sidebar-link">
+                        <span class="sidebar-link-icon">❤️</span> Favoris
+                    </a>
+                    <a href="historique-locations.html" class="sidebar-link">
+                        <span class="sidebar-link-icon">📋</span> Mes locations
+                    </a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Mon compte</div>
+                    <a href="profil.html" class="sidebar-link">
+                        <span class="sidebar-link-icon">👤</span> Profil
+                    </a>
+                    <a href="knowyourcustumer.html" class="sidebar-link">
+                        <span class="sidebar-link-icon">✅</span> Vérification KYC
+                    </a>
+                    <a href="securite.html" class="sidebar-link">
+                        <span class="sidebar-link-icon">🔒</span> Sécurité
+                    </a>
+                    <a href="appareils.html" class="sidebar-link">
+                        <span class="sidebar-link-icon">📱</span> Appareils
+                    </a>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user" onclick="logout()">
+                    <div class="sidebar-user-avatar">MD</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">Utilisateur</div>
+                        <div class="sidebar-user-role">Client</div>
+                    </div>
+                    <span style="color:var(--gray-500);font-size:14px;">⏻</span>
+                </div>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
+        <!-- Main Content -->
+        <main class="main-wrapper">
+            <nav class="navbar">
+                <div class="navbar-left">
+                    <div class="navbar-breadcrumb">
+                        <a href="../../index.html">Accueil</a>
+                        <span class="separator">/</span>
+                        <span class="current">Tableau de bord</span>
+                    </div>
+                </div>
+                <div class="navbar-right">
+                    <button class="navbar-icon-btn"><span class="badge-dot"></span>🔔</button>
+                    <div class="navbar-avatar">MD</div>
+                </div>
+            </nav>
+
+            <div class="page-content">
+                <div class="page-header animate-fade-in-up">
+                    <h1 class="page-title">Tableau de bord</h1>
+                    <p class="page-subtitle">Bienvenue ! Voici un résumé de votre activité.</p>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats-grid stagger-children">
+                    <div class="stat-card stat-blue">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon blue">📋</div>
+                            <span class="stat-card-trend up">+12%</span>
+                        </div>
+                        <div class="stat-card-value" id="stat-locations">0</div>
+                        <div class="stat-card-label">Total locations</div>
+                    </div>
+                    <div class="stat-card stat-green">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon green">🚗</div>
+                        </div>
+                        <div class="stat-card-value" id="stat-active">0</div>
+                        <div class="stat-card-label">Locations actives</div>
+                    </div>
+                    <div class="stat-card stat-amber">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon amber">💰</div>
+                            <span class="stat-card-trend up">+8%</span>
+                        </div>
+                        <div class="stat-card-value" id="stat-spent">0 FCFA</div>
+                        <div class="stat-card-label">Total dépensé</div>
+                    </div>
+                    <div class="stat-card stat-red">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon red">❤️</div>
+                        </div>
+                        <div class="stat-card-value" id="stat-favoris">0</div>
+                        <div class="stat-card-label">Favoris</div>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <!-- Recent Locations -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Locations récentes</h3>
+                            <a href="historique-locations.html" class="btn btn-ghost btn-xs">Voir tout →</a>
+                        </div>
+                        <div id="recentLocations"></div>
+                    </div>
+
+                    <!-- Favorites Preview -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Mes favoris</h3>
+                            <a href="favoris.html" class="btn btn-ghost btn-xs">Voir tout →</a>
+                        </div>
+                        <div id="favoritesPreview"></div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="panel mt-6">
+                    <div class="panel-header">
+                        <h3 class="panel-title">Actions rapides</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="flex gap-3 flex-wrap">
+                            <a href="recherche.html" class="btn btn-primary">🔍 Rechercher un véhicule</a>
+                            <a href="profil.html" class="btn btn-secondary">👤 Compléter mon profil</a>
+                            <a href="knowyourcustumer.html" class="btn btn-secondary">✅ Vérifier mon identité</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="app-footer">
+                <span>© 2026 AutoLoc Pro</span>
+                <a href="#">Support</a>
+            </footer>
+        </main>
+    </div>
+
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/vehicules.js"></script>
+    <script src="../assets/js/client.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!requireAuth('client')) return;
+            loadClientDashboard();
+        });
+    </script>
+</body>
+
+</html>

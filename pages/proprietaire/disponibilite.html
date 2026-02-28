@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disponibilité - AutoLoc Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header"><a href="../../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">🚗</div>
+                    <div class="sidebar-logo-text">Auto<span>Loc</span></div>
+                </a></div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Principal</div><a href="dashboard.html"
+                        class="sidebar-link"><span class="sidebar-link-icon">📊</span> Tableau de bord</a><a
+                        href="liste-vehicules.html" class="sidebar-link"><span class="sidebar-link-icon">🚗</span> Mes
+                        véhicules</a><a href="ajouter-vehicule.html" class="sidebar-link"><span
+                            class="sidebar-link-icon">➕</span> Ajouter véhicule</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Gestion</div><a href="gestion-tarifs.html"
+                        class="sidebar-link"><span class="sidebar-link-icon">💰</span> Tarifs</a><a
+                        href="disponibilite.html" class="sidebar-link active"><span class="sidebar-link-icon">📅</span>
+                        Disponibilité</a><a href="documents.html" class="sidebar-link"><span
+                            class="sidebar-link-icon">📄</span> Documents</a><a href="suivi-exploitation.html"
+                        class="sidebar-link"><span class="sidebar-link-icon">📈</span> Suivi exploitation</a>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user" onclick="logout()">
+                    <div class="sidebar-user-avatar">IB</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">Utilisateur</div>
+                        <div class="sidebar-user-role">Propriétaire</div>
+                    </div><span style="color:var(--gray-500);">⏻</span>
+                </div>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div><button class="sidebar-toggle"
+            id="sidebarToggle">☰</button>
+        <main class="main-wrapper">
+            <nav class="navbar">
+                <div class="navbar-left">
+                    <div class="navbar-breadcrumb"><a href="dashboard.html">Accueil</a><span
+                            class="separator">/</span><span class="current">Disponibilité</span></div>
+                </div>
+                <div class="navbar-right"><button class="navbar-icon-btn">🔔</button>
+                    <div class="navbar-avatar">IB</div>
+                </div>
+            </nav>
+            <div class="page-content">
+                <div class="page-header">
+                    <h1 class="page-title">📅 Gestion de la disponibilité</h1>
+                    <p class="page-subtitle">Gérez les périodes de disponibilité de vos véhicules.</p>
+                </div>
+
+                <div class="form-group mb-6 animate-fade-in-up" style="max-width:400px;">
+                    <label class="form-label">Sélectionner un véhicule</label>
+                    <select class="form-select" id="vehicleSelect" onchange="onVehicleSelect()"></select>
+                </div>
+
+                <div class="two-column animate-fade-in-up" style="animation-delay:0.1s;">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Calendrier</h3><button class="btn btn-ghost btn-xs"
+                                onclick="calendar && calendar.goToToday()">Aujourd'hui</button>
+                        </div>
+                        <div class="panel-body" id="calendarContainer">
+                            <p class="text-sm text-tertiary text-center">Sélectionnez un véhicule pour afficher le
+                                calendrier.</p>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Détail du jour</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="mb-4">
+                                <div class="text-sm text-tertiary">Date sélectionnée :</div>
+                                <div class="font-semibold text-lg" id="selectedDate">-</div>
+                            </div>
+                            <div id="dateEvents">
+                                <p class="text-sm text-tertiary">Cliquez sur une date dans le calendrier.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="app-footer"><span>© 2026 AutoLoc Pro</span></footer>
+        </main>
+    </div>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/vehicules.js"></script>
+    <script src="../assets/js/calendrier.js"></script>
+    <script src="../assets/js/proprietaire.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!requireAuth('proprietaire')) return;
+            const user = AppData.currentUser;
+            const vehicles = AppData.vehicules.filter(v => v.proprietaireId === user.id);
+            const sel = document.getElementById('vehicleSelect');
+            vehicles.forEach(v => { const opt = document.createElement('option'); opt.value = v.id; opt.textContent = v.marque + ' ' + v.modele + ' (' + v.immatriculation + ')'; sel.appendChild(opt); });
+            if (vehicles.length > 0) onVehicleSelect();
+        });
+        function onVehicleSelect() { const vid = document.getElementById('vehicleSelect').value; if (vid) initAvailabilityCalendar(vid); }
+    </script>
+</body>
+
+</html>

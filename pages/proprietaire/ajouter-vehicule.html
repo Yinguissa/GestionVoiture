@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un véhicule - AutoLoc Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header"><a href="../../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">🚗</div>
+                    <div class="sidebar-logo-text">Auto<span>Loc</span></div>
+                </a></div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Principal</div><a href="dashboard.html"
+                        class="sidebar-link"><span class="sidebar-link-icon">📊</span> Tableau de bord</a><a
+                        href="liste-vehicules.html" class="sidebar-link"><span class="sidebar-link-icon">🚗</span> Mes
+                        véhicules</a><a href="ajouter-vehicule.html" class="sidebar-link active"><span
+                            class="sidebar-link-icon">➕</span> Ajouter véhicule</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Gestion</div><a href="gestion-tarifs.html"
+                        class="sidebar-link"><span class="sidebar-link-icon">💰</span> Tarifs</a><a
+                        href="disponibilite.html" class="sidebar-link"><span class="sidebar-link-icon">📅</span>
+                        Disponibilité</a><a href="documents.html" class="sidebar-link"><span
+                            class="sidebar-link-icon">📄</span> Documents</a><a href="suivi-exploitation.html"
+                        class="sidebar-link"><span class="sidebar-link-icon">📈</span> Suivi exploitation</a>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user" onclick="logout()">
+                    <div class="sidebar-user-avatar">IB</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">Utilisateur</div>
+                        <div class="sidebar-user-role">Propriétaire</div>
+                    </div><span style="color:var(--gray-500);">⏻</span>
+                </div>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div><button class="sidebar-toggle"
+            id="sidebarToggle">☰</button>
+        <main class="main-wrapper">
+            <nav class="navbar">
+                <div class="navbar-left">
+                    <div class="navbar-breadcrumb"><a href="dashboard.html">Accueil</a><span
+                            class="separator">/</span><span class="current">Ajouter véhicule</span></div>
+                </div>
+                <div class="navbar-right"><button class="navbar-icon-btn">🔔</button>
+                    <div class="navbar-avatar">IB</div>
+                </div>
+            </nav>
+            <div class="page-content">
+                <div class="page-header">
+                    <h1 class="page-title">➕ Ajouter un véhicule</h1>
+                    <p class="page-subtitle">Complétez les informations pour ajouter un vechicule.</p>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="card mb-6 animate-fade-in-up">
+                    <div class="card-body">
+                        <div class="steps">
+                            <div class="step active">
+                                <div class="step-circle">1</div><span class="step-label">Infos générales</span>
+                            </div>
+                            <div class="step-line"></div>
+                            <div class="step">
+                                <div class="step-circle">2</div><span class="step-label">Caractéristiques</span>
+                            </div>
+                            <div class="step-line"></div>
+                            <div class="step">
+                                <div class="step-circle">3</div><span class="step-label">Tarification</span>
+                            </div>
+                            <div class="step-line"></div>
+                            <div class="step">
+                                <div class="step-circle">4</div><span class="step-label">Photos</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar mt-4">
+                            <div class="progress-bar-fill" id="formProgress" style="width:25%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <form onsubmit="handleVehicleSubmit(event)">
+                    <!-- Step 1 -->
+                    <div id="step-1" class="form-step active card mb-6 animate-fade-in-up">
+                        <div class="card-header">
+                            <h3 class="panel-title">Informations générales</h3>
+                        </div>
+                        <div class="card-body">
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+                                <div class="form-group"><label class="form-label">Marque <span
+                                            class="required">*</span></label><input type="text" id="marque"
+                                        class="form-input" placeholder="Toyota, Mercedes..." required></div>
+                                <div class="form-group"><label class="form-label">Modèle <span
+                                            class="required">*</span></label><input type="text" id="modele"
+                                        class="form-input" placeholder="Corolla, Classe C..." required></div>
+                                <div class="form-group"><label class="form-label">Année <span
+                                            class="required">*</span></label><input type="number" id="annee"
+                                        class="form-input" placeholder="2024" min="2000" max="2026" required></div>
+                                <div class="form-group"><label class="form-label">Immatriculation <span
+                                            class="required">*</span></label><input type="text" id="immatriculation"
+                                        class="form-input" placeholder="RC-XXXX-GN" required></div>
+                                <div class="form-group"><label class="form-label">Ville <span
+                                            class="required">*</span></label><input type="text" id="ville"
+                                        class="form-input" placeholder="Conakry" required></div>
+                                <div class="form-group"><label class="form-label">Couleur</label><input type="text"
+                                        id="couleur" class="form-input" placeholder="Noir, Blanc..."></div>
+                            </div>
+                            <div style="text-align:right;margin-top:var(--space-4);"><button type="button"
+                                    class="btn btn-primary" onclick="nextStep()">Suivant →</button></div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div id="step-2" class="form-step card mb-6">
+                        <div class="card-header">
+                            <h3 class="panel-title">Caractéristiques</h3>
+                        </div>
+                        <div class="card-body">
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+                                <div class="form-group"><label class="form-label">Catégorie</label><select
+                                        id="categorie" class="form-select">
+                                        <option>Berline</option>
+                                        <option>SUV</option>
+                                        <option>4x4</option>
+                                        <option>Citadine</option>
+                                        <option>Break</option>
+                                        <option>Utilitaire</option>
+                                        <option>Minibus</option>
+                                        <option>Luxe</option>
+                                    </select></div>
+                                <div class="form-group"><label class="form-label">Carburant</label><select
+                                        id="carburant" class="form-select">
+                                        <option>Essence</option>
+                                        <option>Diesel</option>
+                                        <option>Hybride</option>
+                                        <option>Électrique</option>
+                                    </select></div>
+                                <div class="form-group"><label class="form-label">Transmission</label><select
+                                        id="transmission" class="form-select">
+                                        <option>Automatique</option>
+                                        <option>Manuelle</option>
+                                    </select></div>
+                                <div class="form-group"><label class="form-label">Nombre de places</label><input
+                                        type="number" id="places" class="form-input" value="5" min="2" max="20"></div>
+                                <div class="form-group"><label class="form-label">Kilométrage</label><input
+                                        type="number" id="kilometrage" class="form-input" placeholder="0"></div>
+                                <div class="form-group"><label class="form-check"
+                                        style="margin-top:var(--space-8);"><input type="checkbox" id="climatisation"
+                                            checked> Climatisation</label></div>
+                            </div>
+                            <div class="form-group"><label class="form-label">Description</label><textarea
+                                    id="description" class="form-textarea"
+                                    placeholder="Décrivez votre véhicule..."></textarea></div>
+                            <div class="flex justify-between mt-4"><button type="button" class="btn btn-secondary"
+                                    onclick="prevStep()">← Précédent</button><button type="button"
+                                    class="btn btn-primary" onclick="nextStep()">Suivant →</button></div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div id="step-3" class="form-step card mb-6">
+                        <div class="card-header">
+                            <h3 class="panel-title">Tarification</h3>
+                        </div>
+                        <div class="card-body">
+                            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-4);">
+                                <div class="form-group"><label class="form-label">Prix / Jour (FCFA) <span
+                                            class="required">*</span></label><input type="number" id="prixJour"
+                                        class="form-input" placeholder="250000" required></div>
+                                <div class="form-group"><label class="form-label">Prix / Semaine (FCFA)</label><input
+                                        type="number" id="prixSemaine" class="form-input" placeholder="1500000"></div>
+                                <div class="form-group"><label class="form-label">Prix / Mois (FCFA)</label><input
+                                        type="number" id="prixMois" class="form-input" placeholder="5000000"></div>
+                            </div>
+                            <div class="alert alert-info mt-4"><span class="alert-icon">💡</span>
+                                <div>Conseil : les prix compétitifs augmentent vos réservations. Consultez les prix du
+                                    marché pour votre catégorie.</div>
+                            </div>
+                            <div class="flex justify-between mt-4"><button type="button" class="btn btn-secondary"
+                                    onclick="prevStep()">← Précédent</button><button type="button"
+                                    class="btn btn-primary" onclick="nextStep()">Suivant →</button></div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div id="step-4" class="form-step card mb-6">
+                        <div class="card-header">
+                            <h3 class="panel-title">Photos du véhicule</h3>
+                        </div>
+                        <div class="card-body">
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+                                <div class="file-upload" style="padding:var(--space-8);"><input type="file"
+                                        accept=".jpg,.png" style="display:none;">
+                                    <div class="file-upload-icon">📸</div>
+                                    <div class="file-upload-text"><strong>Photo de face</strong></div>
+                                    <div class="file-upload-hint">JPG ou PNG</div>
+                                </div>
+                                <div class="file-upload" style="padding:var(--space-8);"><input type="file"
+                                        accept=".jpg,.png" style="display:none;">
+                                    <div class="file-upload-icon">📸</div>
+                                    <div class="file-upload-text"><strong>Photo de profil</strong></div>
+                                    <div class="file-upload-hint">JPG ou PNG</div>
+                                </div>
+                                <div class="file-upload" style="padding:var(--space-8);"><input type="file"
+                                        accept=".jpg,.png" style="display:none;">
+                                    <div class="file-upload-icon">📸</div>
+                                    <div class="file-upload-text"><strong>Photo arrière</strong></div>
+                                    <div class="file-upload-hint">JPG ou PNG</div>
+                                </div>
+                                <div class="file-upload" style="padding:var(--space-8);"><input type="file"
+                                        accept=".jpg,.png" style="display:none;">
+                                    <div class="file-upload-icon">📸</div>
+                                    <div class="file-upload-text"><strong>Intérieur</strong></div>
+                                    <div class="file-upload-hint">JPG ou PNG</div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between mt-6"><button type="button" class="btn btn-secondary"
+                                    onclick="prevStep()">← Précédent</button><button type="submit"
+                                    class="btn btn-primary btn-lg">✅ Soumettre le véhicule</button></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <footer class="app-footer"><span>© 2026 AutoLoc Pro</span></footer>
+        </main>
+    </div>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/proprietaire.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => { if (!requireAuth('proprietaire')) return; initFileUploads(); updateStepIndicators(); });</script>
+</body>
+
+</html>
