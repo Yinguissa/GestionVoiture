@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journal d'audit - AutoLoc Pro</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/layout.css">
     <link rel="stylesheet" href="../assets/css/components.css">
@@ -14,55 +15,99 @@
 <body>
     <div class="app-layout">
         <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header"><a href="../../index.html" class="sidebar-logo">
-                    <div class="sidebar-logo-icon">🚗</div>
+            <div class="sidebar-header">
+                <a href="../../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon"><i class="ph ph-car-profile" style="color: white;"></i></div>
                     <div class="sidebar-logo-text">Auto<span>Loc</span></div>
-                </a></div>
+                </a>
+                <button class="sidebar-collapse-btn" title="Réduire/Agrandir">
+                    <i class="ph ph-caret-left"></i>
+                </button>
+            </div>
             <nav class="sidebar-nav">
                 <div class="sidebar-section">
-                    <div class="sidebar-section-title">Administration</div><a href="dashboard.html"
-                        class="sidebar-link"><span class="sidebar-link-icon">📊</span> Tableau de bord</a><a
-                        href="utilisateurs.html" class="sidebar-link"><span class="sidebar-link-icon">👥</span>
-                        Utilisateurs</a><a href="validation-kyc.html" class="sidebar-link"><span
-                            class="sidebar-link-icon">✅</span> Validation KYC</a><a href="validation-vehicules.html"
-                        class="sidebar-link"><span class="sidebar-link-icon">🚗</span> Validation véhicules</a>
+                    <div class="sidebar-section-title">Administration</div>
+                    <a href="dashboard.html" class="sidebar-link" data-tooltip="Tableau de bord">
+                        <span class="sidebar-link-icon"><i class="ph ph-squares-four"></i></span>
+                        <span class="sidebar-link-text">Tableau de bord</span>
+                    </a>
+                    <a href="#" class="sidebar-link has-submenu" data-tooltip="Utilisateurs">
+                        <span class="sidebar-link-icon"><i class="ph ph-users"></i></span>
+                        <span class="sidebar-link-text">Utilisateurs</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <a href="utilisateurs.html" class="sidebar-link">Gérer les utilisateurs</a>
+                    </div>
+                    <a href="#" class="sidebar-link has-submenu" data-tooltip="Validations">
+                        <span class="sidebar-link-icon"><i class="ph ph-shield-check"></i></span>
+                        <span class="sidebar-link-text">Validations</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <a href="validation-kyc.html" class="sidebar-link">Validation KYC</a>
+                        <a href="validation-vehicules.html" class="sidebar-link">Validation véhicules</a>
+                    </div>
                 </div>
                 <div class="sidebar-section">
-                    <div class="sidebar-section-title">Système</div><a href="liste-vehicules.html"
-                        class="sidebar-link"><span class="sidebar-link-icon">🚗</span> Tous les véhicules</a><a
-                        href="roles.html" class="sidebar-link"><span class="sidebar-link-icon">🔑</span> Rôles</a><a
-                        href="audit-log.html" class="sidebar-link active"><span class="sidebar-link-icon">📋</span>
-                        Journal d'audit</a>
+                    <div class="sidebar-section-title">Gestion</div>
+                    <a href="liste-vehicules.html" class="sidebar-link" data-tooltip="Véhicules">
+                        <span class="sidebar-link-icon"><i class="ph ph-car-profile"></i></span>
+                        <span class="sidebar-link-text">Véhicules</span>
+                    </a>
+                    <a href="clients.html" class="sidebar-link" data-tooltip="Clients">
+                        <span class="sidebar-link-icon"><i class="ph ph-user-circle"></i></span>
+                        <span class="sidebar-link-text">Clients</span>
+                    </a>
+                    <a href="agences.html" class="sidebar-link" data-tooltip="Agences">
+                        <span class="sidebar-link-icon"><i class="ph ph-storefront"></i></span>
+                        <span class="sidebar-link-text">Agences</span>
+                    </a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Système</div>
+                    <a href="roles.html" class="sidebar-link" data-tooltip="Rôles & Permissions">
+                        <span class="sidebar-link-icon"><i class="ph ph-key"></i></span>
+                        <span class="sidebar-link-text">Rôles & Permissions</span>
+                    </a>
+                    <a href="audit-log.html" class="sidebar-link active" data-tooltip="Journal d'audit">
+                        <span class="sidebar-link-icon"><i class="ph ph-clipboard-text"></i></span>
+                        <span class="sidebar-link-text">Journal d'audit</span>
+                    </a>
                 </div>
             </nav>
             <div class="sidebar-footer">
                 <div class="sidebar-user" onclick="logout()">
-                    <div class="sidebar-user-avatar"
-                        style="background:linear-gradient(135deg,var(--error-400),var(--error-600));color:white;">AD
-                    </div>
+                    <div class="sidebar-user-avatar">AD</div>
                     <div class="sidebar-user-info">
                         <div class="sidebar-user-name">Admin</div>
                         <div class="sidebar-user-role">Administrateur</div>
-                    </div><span style="color:var(--gray-500);">⏻</span>
+                    </div>
+                    <span class="sidebar-logout-icon"><i class="ph ph-sign-out"></i></span>
                 </div>
             </div>
         </aside>
-        <div class="sidebar-overlay" id="sidebarOverlay"></div><button class="sidebar-toggle"
-            id="sidebarToggle">☰</button>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
         <main class="main-wrapper">
             <nav class="navbar">
                 <div class="navbar-left">
-                    <div class="navbar-breadcrumb"><a href="dashboard.html">Admin</a><span
-                            class="separator">/</span><span class="current">Journal d'audit</span></div>
+                    <div class="navbar-breadcrumb">
+                        <a href="dashboard.html">Admin</a>
+                        <span class="separator">/</span>
+                        <span class="current">Journal d'audit</span>
+                    </div>
                 </div>
-                <div class="navbar-right"><button class="navbar-icon-btn">🔔</button>
+                <div class="navbar-right">
+                    <button class="navbar-icon-btn"><span class="badge-dot"></span><i class="ph ph-bell"></i></button>
                     <div class="navbar-avatar"
                         style="background:linear-gradient(135deg,var(--error-400),var(--error-600));">AD</div>
                 </div>
             </nav>
+
             <div class="page-content">
-                <div class="page-header">
-                    <h1 class="page-title">📋 Journal d'audit</h1>
+                <div class="page-header animate-fade-in-up">
+                    <h1 class="page-title"><i class="ph ph-clipboard-text" style="color:var(--primary-500);"></i>
+                        Journal d'audit</h1>
                     <p class="page-subtitle">Tracez toutes les actions effectuées sur la plateforme.</p>
                 </div>
                 <div class="table-wrapper animate-fade-in-up">
@@ -80,7 +125,7 @@
                     </table>
                 </div>
             </div>
-            <footer class="app-footer"><span>© 2026 AutoLoc Pro</span></footer>
+            <footer class="app-footer"><span>© 2026 AutoLoc Pro — Tous droits réservés</span></footer>
         </main>
     </div>
     <script src="../assets/js/utils.js"></script>

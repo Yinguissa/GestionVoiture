@@ -2,6 +2,7 @@
  * ============================================
  * AutoLoc Pro - App Core
  * Navigation, component loading, sidebar mgmt
+ * Roles: Admin, Propriétaire, Client, Agence
  * ============================================
  */
 
@@ -18,6 +19,9 @@ const AppData = {
         { id: 'u6', nom: 'Barry', prenom: 'Fatoumata', email: 'fatoumata@email.com', telephone: '+224 626 00 00 00', role: 'client', password: 'Test1234', statut: 'suspendu', kyc: 'refuse', dateInscription: '2025-12-15', avatar: '', ville: 'Labé', adresse: '12 Rue Centrale' },
         { id: 'u7', nom: 'Condé', prenom: 'Alpha', email: 'alpha@email.com', telephone: '+224 627 00 00 00', role: 'client', password: 'Test1234', statut: 'actif', kyc: 'non_soumis', dateInscription: '2026-01-05', avatar: '', ville: 'Kankan', adresse: '5 Avenue Principale' },
         { id: 'u8', nom: 'Sylla', prenom: 'Oumar', email: 'oumar@email.com', telephone: '+224 628 00 00 00', role: 'proprietaire', password: 'Test1234', statut: 'actif', kyc: 'valide', dateInscription: '2025-08-25', avatar: '', nomAgence: 'Sylla Motors', ville: 'Conakry', adresse: '90 Route du Niger' },
+        // Agence role user
+        { id: 'u9', nom: 'Touré', prenom: 'Abdoulaye', email: 'agence@autoloc.com', telephone: '+224 629 00 00 00', role: 'agence', password: 'Agence1234', statut: 'actif', kyc: 'valide', dateInscription: '2025-06-15', avatar: '', nomAgence: 'AutoLoc Conakry', ville: 'Conakry', adresse: '100 Boulevard de la Paix' },
+        { id: 'u10', nom: 'Keita', prenom: 'Mariama', email: 'mariama.agence@email.com', telephone: '+224 630 00 00 00', role: 'agence', password: 'Agence1234', statut: 'actif', kyc: 'valide', dateInscription: '2025-07-01', avatar: '', nomAgence: 'Keita Location Services', ville: 'Kindia', adresse: '15 Rue Commerciale' },
     ]),
 
     vehicules: Storage.get('vehicules', [
@@ -29,6 +33,9 @@ const AppData = {
         { id: 'v6', proprietaireId: 'u8', marque: 'Renault', modele: 'Duster', annee: 2023, categorie: 'SUV', carburant: 'Essence', transmission: 'Manuelle', places: 5, climatisation: true, prixJour: 150000, prixSemaine: 900000, prixMois: 3000000, disponible: true, statut: 'valide', ville: 'Conakry', couleur: 'Vert', kilometrage: 42000, immatriculation: 'RC 2345 F', description: 'Renault Duster 4x4, idéal pour les routes difficiles.', images: [], documents: 'valide', rating: 4.3, totalLocations: 67 },
         { id: 'v7', proprietaireId: 'u8', marque: 'Toyota', modele: 'Corolla', annee: 2024, categorie: 'Berline', carburant: 'Hybride', transmission: 'Automatique', places: 5, climatisation: true, prixJour: 180000, prixSemaine: 1100000, prixMois: 3500000, disponible: true, statut: 'valide', ville: 'Conakry', couleur: 'Argent', kilometrage: 12000, immatriculation: 'RC 6789 G', description: 'Toyota Corolla Hybride, économique et confortable.', images: [], documents: 'valide', rating: 4.7, totalLocations: 38 },
         { id: 'v8', proprietaireId: 'u4', marque: 'Ford', modele: 'Ranger', annee: 2023, categorie: 'Pick-up', carburant: 'Diesel', transmission: 'Automatique', places: 5, climatisation: true, prixJour: 280000, prixSemaine: 1700000, prixMois: 5500000, disponible: true, statut: 'valide', ville: 'Conakry', couleur: 'Noir', kilometrage: 28000, immatriculation: 'RC 0123 H', description: 'Ford Ranger Wildtrak, puissant et robuste.', images: [], documents: 'valide', rating: 4.4, totalLocations: 41 },
+        // Véhicules gérés par l'agence
+        { id: 'v9', proprietaireId: 'u9', marque: 'Peugeot', modele: '3008', annee: 2024, categorie: 'SUV', carburant: 'Diesel', transmission: 'Automatique', places: 5, climatisation: true, prixJour: 300000, prixSemaine: 1800000, prixMois: 6000000, disponible: true, statut: 'valide', ville: 'Conakry', couleur: 'Bleu', kilometrage: 10000, immatriculation: 'RC 4567 I', description: 'Peugeot 3008 GT Line, très confortable.', images: [], documents: 'valide', rating: 4.6, totalLocations: 15 },
+        { id: 'v10', proprietaireId: 'u10', marque: 'Kia', modele: 'Sportage', annee: 2024, categorie: 'SUV', carburant: 'Essence', transmission: 'Automatique', places: 5, climatisation: true, prixJour: 220000, prixSemaine: 1300000, prixMois: 4500000, disponible: true, statut: 'valide', ville: 'Kindia', couleur: 'Blanc', kilometrage: 7000, immatriculation: 'KA 1234 A', description: 'Kia Sportage dernière génération, moderne et économique.', images: [], documents: 'valide', rating: 4.5, totalLocations: 22 },
     ]),
 
     locations: Storage.get('locations', [
@@ -38,6 +45,12 @@ const AppData = {
         { id: 'l4', vehiculeId: 'v6', clientId: 'u7', dateDebut: '2026-03-01', dateFin: '2026-03-07', prixTotal: 900000, statut: 'en_attente', paiement: 'en_attente', createdAt: '2026-02-25' },
         { id: 'l5', vehiculeId: 'v4', clientId: 'u1', dateDebut: '2025-12-20', dateFin: '2025-12-27', prixTotal: 1200000, statut: 'termine', paiement: 'payé', createdAt: '2025-12-18' },
         { id: 'l6', vehiculeId: 'v7', clientId: 'u2', dateDebut: '2026-02-28', dateFin: '2026-03-05', prixTotal: 1100000, statut: 'en_cours', paiement: 'payé', createdAt: '2026-02-26' },
+        { id: 'l7', vehiculeId: 'v9', clientId: 'u1', dateDebut: '2026-03-01', dateFin: '2026-03-04', prixTotal: 900000, statut: 'en_cours', paiement: 'payé', createdAt: '2026-02-28' },
+    ]),
+
+    agences: Storage.get('agences', [
+        { id: 'ag1', userId: 'u9', nom: 'AutoLoc Conakry', adresse: '100 Boulevard de la Paix', ville: 'Conakry', telephone: '+224 629 00 00 00', email: 'agence@autoloc.com', vehiculesCount: 3, statut: 'actif', dateCreation: '2025-06-15' },
+        { id: 'ag2', userId: 'u10', nom: 'Keita Location Services', adresse: '15 Rue Commerciale', ville: 'Kindia', telephone: '+224 630 00 00 00', email: 'mariama.agence@email.com', vehiculesCount: 2, statut: 'actif', dateCreation: '2025-07-01' },
     ]),
 
     favoris: Storage.get('favoris', ['v1', 'v3', 'v7']),
@@ -56,45 +69,140 @@ const AppData = {
     ]),
 };
 
+// ---- Predefined OTP codes for each role (simulated) ----
+const OTP_CODES = {
+    'admin@autoloc.com': '123456',
+    'mamadou@email.com': '111111',
+    'aissatou@email.com': '222222',
+    'ibrahima@email.com': '333333',
+    'mohamed@email.com': '444444',
+    'alpha@email.com': '555555',
+    'fatoumata@email.com': '666666',
+    'oumar@email.com': '777777',
+    'agence@autoloc.com': '888888',
+    'mariama.agence@email.com': '999999',
+    // Default fallback for any registered user
+    '_default': '000000'
+};
+
+// Get OTP for an email (simulated)
+function getOTPForEmail(email) {
+    return OTP_CODES[email] || OTP_CODES['_default'];
+}
+
 // ---- Save data to storage ----
 function saveData() {
     Storage.set('users', AppData.users);
     Storage.set('vehicules', AppData.vehicules);
     Storage.set('locations', AppData.locations);
+    Storage.set('agences', AppData.agences);
     Storage.set('favoris', AppData.favoris);
     Storage.set('incidents', AppData.incidents);
     Storage.set('auditLog', AppData.auditLog);
 }
 
-// ---- Sidebar Toggle (Mobile) ----
+// ---- Collapsible Sidebar Toggle ----
+function initCollapsibleSidebar() {
+    const sidebar = $('.sidebar');
+    const collapseBtn = $('.sidebar-collapse-btn');
+    if (!sidebar || !collapseBtn) return;
+
+    // Restore collapsed state from storage
+    const isCollapsed = Storage.get('sidebarCollapsed', false);
+    if (isCollapsed) {
+        sidebar.classList.add('collapsed');
+    }
+
+    collapseBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+        Storage.set('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+    });
+}
+
+// ---- Sidebar Mobile Toggle & Submenus ----
 function initSidebar() {
     const sidebar = $('.sidebar');
     const toggle = $('.sidebar-toggle');
     const overlay = $('.sidebar-overlay');
 
-    if (toggle) {
+    if (toggle && sidebar) {
         toggle.addEventListener('click', () => {
             sidebar.classList.toggle('open');
-            overlay.classList.toggle('active');
+            if (overlay) overlay.classList.toggle('active');
             toggle.innerHTML = sidebar.classList.contains('open') ? '✕' : '☰';
         });
     }
 
     if (overlay) {
         overlay.addEventListener('click', () => {
-            sidebar.classList.remove('open');
+            if (sidebar) sidebar.classList.remove('open');
             overlay.classList.remove('active');
             if (toggle) toggle.innerHTML = '☰';
         });
     }
 
+    // Submenu Toggles
+    $$('.sidebar-link.has-submenu').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            link.classList.toggle('open');
+            const submenu = link.nextElementSibling;
+            if (submenu && submenu.classList.contains('sidebar-submenu')) {
+                submenu.classList.toggle('open');
+            }
+        });
+    });
+
     // Set active link
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     $$('.sidebar-link').forEach(link => {
         const href = link.getAttribute('href');
+        if (href && href.includes(currentPage) && !link.classList.contains('has-submenu')) {
+            link.classList.add('active');
+            const parentSubmenu = link.closest('.sidebar-submenu');
+            if (parentSubmenu) {
+                parentSubmenu.classList.add('open');
+                const parentLink = parentSubmenu.previousElementSibling;
+                if (parentLink && parentLink.classList.contains('has-submenu')) {
+                    parentLink.classList.add('open');
+                    parentLink.classList.add('active');
+                }
+            }
+        }
+    });
+
+    // Initialize collapsible sidebar
+    initCollapsibleSidebar();
+}
+
+// ---- Client Navbar (Mobile Menu) ----
+function initClientNavbar() {
+    const menuToggle = $('.client-menu-toggle');
+    const navDrawer = $('.client-nav-drawer');
+    if (!menuToggle || !navDrawer) return;
+
+    menuToggle.addEventListener('click', () => {
+        navDrawer.classList.toggle('open');
+        menuToggle.innerHTML = navDrawer.classList.contains('open')
+            ? '<i class="ph ph-x"></i>'
+            : '<i class="ph ph-list"></i>';
+    });
+
+    // Set active nav link
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    $$('.client-nav-link').forEach(link => {
+        const href = link.getAttribute('href');
         if (href && href.includes(currentPage)) {
             link.classList.add('active');
         }
+    });
+
+    // Close drawer on link click
+    $$('.client-nav-drawer .client-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            navDrawer.classList.remove('open');
+            if (menuToggle) menuToggle.innerHTML = '<i class="ph ph-list"></i>';
+        });
     });
 }
 
@@ -233,6 +341,20 @@ function requireAuth(role = null) {
     return true;
 }
 
+// Allow multiple roles
+function requireAuthMulti(roles = []) {
+    const user = AppData.currentUser;
+    if (!user) {
+        window.location.href = getAuthPath('connexion.html');
+        return false;
+    }
+    if (roles.length > 0 && !roles.includes(user.role)) {
+        window.location.href = getDashboardPath(user.role);
+        return false;
+    }
+    return true;
+}
+
 function getAuthPath(page) {
     const depth = getPathDepth();
     if (depth === 0) return `pages/auth/${page}`;
@@ -242,7 +364,12 @@ function getAuthPath(page) {
 
 function getDashboardPath(role) {
     const depth = getPathDepth();
-    const roleMap = { client: 'clients', proprietaire: 'proprietaire', admin: 'admin' };
+    const roleMap = {
+        client: 'clients',
+        proprietaire: 'proprietaire',
+        admin: 'admin',
+        agence: 'agence'
+    };
     const folder = roleMap[role] || 'clients';
     if (depth === 0) return `pages/${folder}/dashboard.html`;
     if (depth === 1) return `${folder}/dashboard.html`;
@@ -251,7 +378,7 @@ function getDashboardPath(role) {
 
 function getPathDepth() {
     const path = window.location.pathname;
-    if (path.includes('/pages/') && (path.includes('/auth/') || path.includes('/clients/') || path.includes('/proprietaire/') || path.includes('/admin/'))) return 2;
+    if (path.includes('/pages/') && (path.includes('/auth/') || path.includes('/clients/') || path.includes('/proprietaire/') || path.includes('/admin/') || path.includes('/agence/'))) return 2;
     if (path.includes('/pages/')) return 1;
     return 0;
 }
@@ -262,7 +389,7 @@ function logout() {
     window.location.href = getAuthPath('connexion.html');
 }
 
-// ---- Update user info in sidebar ----
+// ---- Update user info in sidebar / navbar ----
 function updateUserDisplay() {
     const user = AppData.currentUser;
     if (!user) return;
@@ -272,16 +399,32 @@ function updateUserDisplay() {
     const avatarEl = $('.sidebar-user-avatar');
     const navAvatarEl = $('.navbar-avatar');
 
+    // Also handle client navbar avatar
+    const clientNavAvatar = $('.client-navbar-avatar');
+
     if (nameEl) nameEl.textContent = `${user.prenom} ${user.nom}`;
-    if (roleEl) roleEl.textContent = Format.capitalize(user.role);
+    if (roleEl) roleEl.textContent = getRoleLabel(user.role);
     const initials = Format.initials(`${user.prenom} ${user.nom}`);
     if (avatarEl) { avatarEl.textContent = initials; avatarEl.style.background = getAvatarColor(user.prenom + user.nom); }
     if (navAvatarEl) { navAvatarEl.textContent = initials; navAvatarEl.style.background = getAvatarColor(user.prenom + user.nom); }
+    if (clientNavAvatar) { clientNavAvatar.textContent = initials; clientNavAvatar.style.background = getAvatarColor(user.prenom + user.nom); }
+}
+
+// Role labels in French
+function getRoleLabel(role) {
+    const labels = {
+        admin: 'Administrateur',
+        proprietaire: 'Propriétaire',
+        client: 'Client',
+        agence: 'Agence'
+    };
+    return labels[role] || Format.capitalize(role);
 }
 
 // ---- Global Init ----
 document.addEventListener('DOMContentLoaded', () => {
     initSidebar();
+    initClientNavbar();
     initDropdowns();
     initModals();
     initTabs();

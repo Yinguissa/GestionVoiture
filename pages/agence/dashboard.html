@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agence - Tableau de bord - AutoLoc Pro</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <!-- Collapsible Sidebar for Agence -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon"><i class="ph ph-car-profile" style="color: white;"></i></div>
+                    <div class="sidebar-logo-text">Auto<span>Loc</span></div>
+                </a>
+                <button class="sidebar-collapse-btn" title="Réduire/Agrandir">
+                    <i class="ph ph-caret-left"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Agence</div>
+                    <a href="dashboard.html" class="sidebar-link active" data-tooltip="Tableau de bord">
+                        <span class="sidebar-link-icon"><i class="ph ph-squares-four"></i></span>
+                        <span class="sidebar-link-text">Tableau de bord</span>
+                    </a>
+
+                    <a href="vehicules.html" class="sidebar-link" data-tooltip="Mes véhicules">
+                        <span class="sidebar-link-icon"><i class="ph ph-car-profile"></i></span>
+                        <span class="sidebar-link-text">Mes véhicules</span>
+                    </a>
+
+                    <a href="clients.html" class="sidebar-link" data-tooltip="Clients">
+                        <span class="sidebar-link-icon"><i class="ph ph-users"></i></span>
+                        <span class="sidebar-link-text">Clients</span>
+                    </a>
+
+                    <a href="reservations.html" class="sidebar-link" data-tooltip="Réservations">
+                        <span class="sidebar-link-icon"><i class="ph ph-calendar-check"></i></span>
+                        <span class="sidebar-link-text">Réservations</span>
+                    </a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Gestion</div>
+                    <a href="tarifs.html" class="sidebar-link" data-tooltip="Tarifs">
+                        <span class="sidebar-link-icon"><i class="ph ph-tag"></i></span>
+                        <span class="sidebar-link-text">Tarifs</span>
+                    </a>
+                    <a href="statistiques.html" class="sidebar-link" data-tooltip="Statistiques">
+                        <span class="sidebar-link-icon"><i class="ph ph-chart-line-up"></i></span>
+                        <span class="sidebar-link-text">Statistiques</span>
+                    </a>
+                    <a href="profil.html" class="sidebar-link" data-tooltip="Profil agence">
+                        <span class="sidebar-link-icon"><i class="ph ph-storefront"></i></span>
+                        <span class="sidebar-link-text">Profil agence</span>
+                    </a>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user" onclick="logout()">
+                    <div class="sidebar-user-avatar">AT</div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">Agence</div>
+                        <div class="sidebar-user-role">Agence</div>
+                    </div>
+                    <span class="sidebar-logout-icon"><i class="ph ph-sign-out"></i></span>
+                </div>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
+        <main class="main-wrapper">
+            <nav class="navbar">
+                <div class="navbar-left">
+                    <div class="navbar-breadcrumb"><span class="current">Agence</span></div>
+                </div>
+                <div class="navbar-right">
+                    <button class="navbar-icon-btn"><span class="badge-dot"></span><i class="ph ph-bell"></i></button>
+                    <div class="navbar-avatar"
+                        style="background:linear-gradient(135deg,var(--accent-400),var(--accent-600));">AT</div>
+                </div>
+            </nav>
+
+            <div class="page-content">
+                <div class="page-header animate-fade-in-up">
+                    <h1 class="page-title">Tableau de bord agence</h1>
+                    <p class="page-subtitle" id="agenceWelcome">Gérez votre flotte et vos réservations.</p>
+                </div>
+
+                <div class="stats-grid stagger-children">
+                    <div class="stat-card stat-blue">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon blue"><i class="ph ph-car-profile" style="font-size:24px;"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-value" id="ag-stat-vehicles">0</div>
+                        <div class="stat-card-label">Véhicules gérés</div>
+                    </div>
+                    <div class="stat-card stat-green">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon green"><i class="ph ph-calendar-check"
+                                    style="font-size:24px;"></i></div>
+                        </div>
+                        <div class="stat-card-value" id="ag-stat-reservations">0</div>
+                        <div class="stat-card-label">Réservations actives</div>
+                    </div>
+                    <div class="stat-card stat-amber">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon amber"><i class="ph ph-currency-circle-dollar"
+                                    style="font-size:24px;"></i></div>
+                            <span class="stat-card-trend up">+15%</span>
+                        </div>
+                        <div class="stat-card-value" id="ag-stat-revenue">0 GNF</div>
+                        <div class="stat-card-label">Revenus (GNF)</div>
+                    </div>
+                    <div class="stat-card stat-purple">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon purple"><i class="ph ph-users" style="font-size:24px;"></i></div>
+                        </div>
+                        <div class="stat-card-value" id="ag-stat-clients">0</div>
+                        <div class="stat-card-label">Clients servis</div>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Véhicules de l'agence</h3>
+                        </div>
+                        <div id="agenceVehicles"></div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Réservations récentes</h3>
+                        </div>
+                        <div id="agenceReservations"></div>
+                    </div>
+                </div>
+
+                <div class="panel mt-6">
+                    <div class="panel-header">
+                        <h3 class="panel-title">Actions rapides</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="flex gap-3 flex-wrap">
+                            <button class="btn btn-primary"
+                                onclick="Toast.info('Fonctionnalité', 'Ajout de véhicule bientôt disponible.')"><i
+                                    class="ph ph-plus-circle" style="font-size:18px;"></i> Ajouter un véhicule</button>
+                            <button class="btn btn-secondary"
+                                onclick="Toast.info('Fonctionnalité', 'Gestion des tarifs bientôt disponible.')"><i
+                                    class="ph ph-tag" style="font-size:18px;"></i> Gérer les tarifs</button>
+                            <button class="btn btn-secondary"
+                                onclick="Toast.info('Fonctionnalité', 'Statistiques bientôt disponibles.')"><i
+                                    class="ph ph-chart-line-up" style="font-size:18px;"></i> Voir les
+                                statistiques</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="app-footer"><span>© 2026 AutoLoc Pro — Tous droits réservés</span></footer>
+        </main>
+    </div>
+
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/vehicules.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!requireAuth('agence')) return;
+            loadAgenceDashboard();
+        });
+
+        function loadAgenceDashboard() {
+            const user = AppData.currentUser;
+            if (!user) return;
+
+            // Welcome message
+            const welcome = document.getElementById('agenceWelcome');
+            if (welcome && user.nomAgence) {
+                welcome.textContent = `Bienvenue ${user.prenom} — ${user.nomAgence}`;
+            }
+
+            // Get vehicles owned by this agence user
+            const vehicles = AppData.vehicules.filter(v => v.proprietaireId === user.id);
+            const vehicleIds = vehicles.map(v => v.id);
+            const reservations = AppData.locations.filter(l => vehicleIds.includes(l.vehiculeId));
+            const activeReservations = reservations.filter(l => l.statut === 'en_cours');
+            const revenue = reservations.filter(l => l.paiement === 'payé').reduce((s, l) => s + l.prixTotal, 0);
+            const uniqueClients = [...new Set(reservations.map(l => l.clientId))];
+
+            // Stats
+            const stats = {
+                '#ag-stat-vehicles': vehicles.length,
+                '#ag-stat-reservations': activeReservations.length,
+                '#ag-stat-revenue': Format.currency(revenue),
+                '#ag-stat-clients': uniqueClients.length,
+            };
+            Object.entries(stats).forEach(([sel, val]) => {
+                const el = document.querySelector(sel);
+                if (el) el.textContent = val;
+            });
+
+            // Vehicle list
+            const vehiclePanel = document.getElementById('agenceVehicles');
+            if (vehiclePanel) {
+                if (vehicles.length === 0) {
+                    vehiclePanel.innerHTML = '<div class="empty-state"><div class="empty-state-icon"><i class="ph ph-car-profile" style="font-size:3rem;color:var(--slate-300);"></i></div><h3 class="empty-state-title">Aucun véhicule</h3><p class="empty-state-description">Ajoutez votre premier véhicule.</p></div>';
+                } else {
+                    vehiclePanel.innerHTML = vehicles.map(v => `
+                        <div class="flex items-center justify-between" style="padding:var(--space-3); border-bottom:1px solid var(--border-light);">
+                            <div class="flex items-center gap-3">
+                                <img src="${getCarPlaceholder(v.marque)}" style="width:48px;height:32px;border-radius:6px;object-fit:cover;">
+                                <div>
+                                    <div class="text-sm font-medium">${v.marque} ${v.modele}</div>
+                                    <div class="text-xs text-tertiary">${v.immatriculation} · ${Format.currency(v.prixJour)}/jour</div>
+                                </div>
+                            </div>
+                            ${getStatusBadge(v.disponible ? 'disponible' : 'loue')}
+                        </div>
+                    `).join('');
+                }
+            }
+
+            // Reservations
+            const resPanel = document.getElementById('agenceReservations');
+            if (resPanel) {
+                if (reservations.length === 0) {
+                    resPanel.innerHTML = '<div class="empty-state"><div class="empty-state-icon"><i class="ph ph-calendar-blank" style="font-size:3rem;color:var(--slate-300);"></i></div><h3 class="empty-state-title">Aucune réservation</h3></div>';
+                } else {
+                    resPanel.innerHTML = reservations.slice(0, 5).map(l => {
+                        const v = AppData.vehicules.find(v => v.id === l.vehiculeId);
+                        const client = AppData.users.find(u => u.id === l.clientId);
+                        return `
+                            <div class="flex items-center justify-between" style="padding:var(--space-3); border-bottom:1px solid var(--border-light);">
+                                <div>
+                                    <div class="text-sm font-medium">${v ? v.marque + ' ' + v.modele : 'N/A'}</div>
+                                    <div class="text-xs text-tertiary">${client ? client.prenom + ' ' + client.nom : 'N/A'} · ${Format.dateShort(l.dateDebut)} → ${Format.dateShort(l.dateFin)}</div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm font-semibold">${Format.currency(l.prixTotal)}</span>
+                                    ${getStatusBadge(l.statut)}
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

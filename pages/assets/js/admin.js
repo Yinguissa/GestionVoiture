@@ -9,6 +9,7 @@
 function loadAdminDashboard() {
     const totalUsers = AppData.users.filter(u => u.role !== 'admin').length;
     const totalVehicles = AppData.vehicules.length;
+    const totalAgences = AppData.users.filter(u => u.role === 'agence').length;
     const pendingKyc = AppData.users.filter(u => u.kyc === 'en_attente').length;
     const pendingDocs = AppData.vehicules.filter(v => v.documents === 'en_attente' || v.statut === 'en_attente').length;
     const totalRevenue = AppData.locations.filter(l => l.paiement === 'payé').reduce((s, l) => s + l.prixTotal, 0);
@@ -17,6 +18,7 @@ function loadAdminDashboard() {
     const stats = {
         '#stat-users': totalUsers,
         '#stat-vehicles': totalVehicles,
+        '#stat-agences': totalAgences,
         '#stat-pending-kyc': pendingKyc,
         '#stat-pending-docs': pendingDocs,
         '#stat-revenue': Format.currency(totalRevenue),
@@ -418,22 +420,28 @@ function loadRoles() {
     if (!container) return;
 
     const roles = [
-        { name: 'Client', description: 'Rechercher, louer et gérer ses réservations de véhicules', permissions: ['Rechercher des véhicules', 'Réserver un véhicule', 'Gérer ses favoris', 'Voir son historique', 'Déclarer un incident', 'Soumettre KYC'], color: 'blue', count: AppData.users.filter(u => u.role === 'client').length },
-        { name: 'Propriétaire', description: 'Gérer sa flotte de véhicules et suivre les locations', permissions: ['Ajouter des véhicules', 'Gérer les tarifs', 'Voir les réservations', 'Gérer les disponibilités', 'Soumettre des documents', 'Suivi exploitation'], color: 'purple', count: AppData.users.filter(u => u.role === 'proprietaire').length },
-        { name: 'Administrateur', description: 'Gérer l\'ensemble de la plateforme et ses utilisateurs', permissions: ['Gérer les utilisateurs', 'Valider les KYC', 'Valider les véhicules', 'Voir les statistiques', 'Gérer les rôles', 'Journal d\'audit'], color: 'amber', count: AppData.users.filter(u => u.role === 'admin').length },
+        { name: 'Client', icon: 'ph-user-circle', description: 'Rechercher, louer et gérer ses réservations de véhicules', permissions: ['Rechercher des véhicules', 'Réserver un véhicule', 'Gérer ses favoris', 'Voir son historique', 'Déclarer un incident', 'Soumettre KYC'], color: 'primary', count: AppData.users.filter(u => u.role === 'client').length },
+        { name: 'Propriétaire', icon: 'ph-buildings', description: 'Gérer sa flotte de véhicules et suivre les locations', permissions: ['Ajouter des véhicules', 'Gérer les tarifs', 'Voir les réservations', 'Gérer les disponibilités', 'Soumettre des documents', 'Suivi exploitation'], color: 'purple', count: AppData.users.filter(u => u.role === 'proprietaire').length },
+        { name: 'Agence', icon: 'ph-storefront', description: 'Gérer une flotte pour le compte de propriétaires multiples', permissions: ['Gérer la flotte véhicules', 'Gérer les réservations', 'Voir les clients', 'Gérer les tarifs', 'Statistiques agence', 'Profil agence'], color: 'success', count: AppData.users.filter(u => u.role === 'agence').length },
+        { name: 'Administrateur', icon: 'ph-gear-six', description: 'Gérer l\'ensemble de la plateforme et ses utilisateurs', permissions: ['Gérer les utilisateurs', 'Valider les KYC', 'Valider les véhicules', 'Gérer les agences', 'Gérer les rôles', 'Journal d\'audit'], color: 'warning', count: AppData.users.filter(u => u.role === 'admin').length },
     ];
 
     container.innerHTML = roles.map(role => `
         <div class="card">
             <div class="card-body">
                 <div class="flex items-center justify-between mb-4">
-                    <h3>${role.name}</h3>
-                    <span class="badge badge-${role.color === 'blue' ? 'primary' : role.color === 'purple' ? 'purple' : 'warning'}">${role.count} utilisateurs</span>
+                    <div class="flex items-center gap-3">
+                        <div class="stat-card-icon ${role.color === 'primary' ? 'blue' : role.color === 'success' ? 'green' : role.color === 'warning' ? 'amber' : 'purple'}">
+                            <i class="ph ${role.icon}" style="font-size: 22px;"></i>
+                        </div>
+                        <h3>${role.name}</h3>
+                    </div>
+                    <span class="badge badge-${role.color}">${role.count} utilisateur(s)</span>
                 </div>
                 <p class="text-sm text-secondary mb-4">${role.description}</p>
                 <h5 class="text-sm font-semibold mb-2">Permissions :</h5>
                 <ul style="list-style:none;">
-                    ${role.permissions.map(p => `<li class="text-sm text-secondary" style="padding:var(--space-1) 0;">✓ ${p}</li>`).join('')}
+                    ${role.permissions.map(p => `<li class="text-sm text-secondary" style="padding:var(--space-1) 0;display:flex;align-items:center;gap:6px;"><i class="ph ph-check-circle" style="color:var(--emerald-500);font-size:16px;"></i> ${p}</li>`).join('')}
                 </ul>
             </div>
         </div>

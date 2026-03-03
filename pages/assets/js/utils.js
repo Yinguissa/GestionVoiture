@@ -168,7 +168,7 @@ const Validator = {
 
 // ---- Format Utilities ----
 const Format = {
-    currency(amount, currency = 'FCFA') {
+    currency(amount, currency = 'GNF') {
         return new Intl.NumberFormat('fr-FR').format(amount) + ' ' + currency;
     },
     date(dateStr) {

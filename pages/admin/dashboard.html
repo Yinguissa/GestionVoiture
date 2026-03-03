@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Tableau de bord - AutoLoc Pro</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/layout.css">
     <link rel="stylesheet" href="../assets/css/components.css">
@@ -13,53 +14,94 @@
 
 <body>
     <div class="app-layout">
+        <!-- Collapsible Sidebar -->
         <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header"><a href="../../index.html" class="sidebar-logo">
-                    <div class="sidebar-logo-icon">🚗</div>
+            <div class="sidebar-header">
+                <a href="../../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon"><i class="ph ph-car-profile" style="color: white;"></i></div>
                     <div class="sidebar-logo-text">Auto<span>Loc</span></div>
-                </a></div>
+                </a>
+                <button class="sidebar-collapse-btn" title="Réduire/Agrandir">
+                    <i class="ph ph-caret-left"></i>
+                </button>
+            </div>
             <nav class="sidebar-nav">
                 <div class="sidebar-section">
                     <div class="sidebar-section-title">Administration</div>
-                    <a href="dashboard.html" class="sidebar-link active"><span class="sidebar-link-icon">📊</span>
-                        Tableau de bord</a>
-                    <a href="utilisateurs.html" class="sidebar-link"><span class="sidebar-link-icon">👥</span>
-                        Utilisateurs</a>
-                    <a href="validation-kyc.html" class="sidebar-link"><span class="sidebar-link-icon">✅</span>
-                        Validation KYC</a>
-                    <a href="validation-vehicules.html" class="sidebar-link"><span class="sidebar-link-icon">🚗</span>
-                        Validation véhicules</a>
+                    <a href="dashboard.html" class="sidebar-link active" data-tooltip="Tableau de bord">
+                        <span class="sidebar-link-icon"><i class="ph ph-squares-four"></i></span>
+                        <span class="sidebar-link-text">Tableau de bord</span>
+                    </a>
+
+                    <a href="#" class="sidebar-link has-submenu" data-tooltip="Utilisateurs">
+                        <span class="sidebar-link-icon"><i class="ph ph-users"></i></span>
+                        <span class="sidebar-link-text">Utilisateurs</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <a href="utilisateurs.html" class="sidebar-link">Gérer les utilisateurs</a>
+                        <a href="detail-utilisateur.html" class="sidebar-link">Détails utilisateur</a>
+                    </div>
+
+                    <a href="#" class="sidebar-link has-submenu" data-tooltip="Validations">
+                        <span class="sidebar-link-icon"><i class="ph ph-shield-check"></i></span>
+                        <span class="sidebar-link-text">Validations</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                        <a href="validation-kyc.html" class="sidebar-link">Validation KYC</a>
+                        <a href="validation-vehicules.html" class="sidebar-link">Validation véhicules</a>
+                    </div>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Gestion</div>
+
+                    <a href="liste-vehicules.html" class="sidebar-link" data-tooltip="Véhicules">
+                        <span class="sidebar-link-icon"><i class="ph ph-car-profile"></i></span>
+                        <span class="sidebar-link-text">Véhicules</span>
+                    </a>
+
+                    <a href="clients.html" class="sidebar-link" data-tooltip="Clients">
+                        <span class="sidebar-link-icon"><i class="ph ph-user-circle"></i></span>
+                        <span class="sidebar-link-text">Clients</span>
+                    </a>
+
+                    <a href="agences.html" class="sidebar-link" data-tooltip="Agences">
+                        <span class="sidebar-link-icon"><i class="ph ph-storefront"></i></span>
+                        <span class="sidebar-link-text">Agences</span>
+                    </a>
                 </div>
                 <div class="sidebar-section">
                     <div class="sidebar-section-title">Système</div>
-                    <a href="liste-vehicules.html" class="sidebar-link"><span class="sidebar-link-icon">🚗</span> Tous
-                        les véhicules</a>
-                    <a href="roles.html" class="sidebar-link"><span class="sidebar-link-icon">🔑</span> Rôles</a>
-                    <a href="audit-log.html" class="sidebar-link"><span class="sidebar-link-icon">📋</span> Journal
-                        d'audit</a>
+                    <a href="roles.html" class="sidebar-link" data-tooltip="Rôles & Permissions">
+                        <span class="sidebar-link-icon"><i class="ph ph-key"></i></span>
+                        <span class="sidebar-link-text">Rôles & Permissions</span>
+                    </a>
+                    <a href="audit-log.html" class="sidebar-link" data-tooltip="Journal d'audit">
+                        <span class="sidebar-link-icon"><i class="ph ph-clipboard-text"></i></span>
+                        <span class="sidebar-link-text">Journal d'audit</span>
+                    </a>
                 </div>
             </nav>
             <div class="sidebar-footer">
                 <div class="sidebar-user" onclick="logout()">
-                    <div class="sidebar-user-avatar"
-                        style="background:linear-gradient(135deg,var(--error-400),var(--error-600));color:white;">AD
-                    </div>
+                    <div class="sidebar-user-avatar">AD</div>
                     <div class="sidebar-user-info">
                         <div class="sidebar-user-name">Admin</div>
                         <div class="sidebar-user-role">Administrateur</div>
-                    </div><span style="color:var(--gray-500);">⏻</span>
+                    </div>
+                    <span class="sidebar-logout-icon"><i class="ph ph-sign-out"></i></span>
                 </div>
             </div>
         </aside>
-        <div class="sidebar-overlay" id="sidebarOverlay"></div><button class="sidebar-toggle"
-            id="sidebarToggle">☰</button>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
 
         <main class="main-wrapper">
             <nav class="navbar">
                 <div class="navbar-left">
                     <div class="navbar-breadcrumb"><span class="current">Administration</span></div>
                 </div>
-                <div class="navbar-right"><button class="navbar-icon-btn"><span class="badge-dot"></span>🔔</button>
+                <div class="navbar-right">
+                    <button class="navbar-icon-btn"><span class="badge-dot"></span><i class="ph ph-bell"></i></button>
                     <div class="navbar-avatar"
                         style="background:linear-gradient(135deg,var(--error-400),var(--error-600));">AD</div>
                 </div>
@@ -68,48 +110,55 @@
             <div class="page-content">
                 <div class="page-header animate-fade-in-up">
                     <h1 class="page-title">Tableau de bord administrateur</h1>
-                    <p class="page-subtitle">Vue d'ensemble de la plateforme.</p>
+                    <p class="page-subtitle">Vue d'ensemble de la plateforme AutoLoc Pro.</p>
                 </div>
 
                 <div class="stats-grid stagger-children">
                     <div class="stat-card stat-blue">
                         <div class="stat-card-header">
-                            <div class="stat-card-icon blue">👥</div><span class="stat-card-trend up">+5</span>
+                            <div class="stat-card-icon blue"><i class="ph ph-users" style="font-size: 24px;"></i></div>
+                            <span class="stat-card-trend up">+5</span>
                         </div>
                         <div class="stat-card-value" id="stat-users">0</div>
                         <div class="stat-card-label">Utilisateurs</div>
                     </div>
                     <div class="stat-card stat-green">
                         <div class="stat-card-header">
-                            <div class="stat-card-icon green">🚗</div>
+                            <div class="stat-card-icon green"><i class="ph ph-car-profile" style="font-size: 24px;"></i>
+                            </div>
                         </div>
                         <div class="stat-card-value" id="stat-vehicles">0</div>
                         <div class="stat-card-label">Véhicules</div>
                     </div>
                     <div class="stat-card stat-amber">
                         <div class="stat-card-header">
-                            <div class="stat-card-icon amber">✅</div>
+                            <div class="stat-card-icon amber"><i class="ph ph-storefront" style="font-size: 24px;"></i>
+                            </div>
+                        </div>
+                        <div class="stat-card-value" id="stat-agences">0</div>
+                        <div class="stat-card-label">Agences</div>
+                    </div>
+                    <div class="stat-card stat-red">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon red"><i class="ph ph-shield-check" style="font-size: 24px;"></i>
+                            </div>
                         </div>
                         <div class="stat-card-value" id="stat-pending-kyc">0</div>
                         <div class="stat-card-label">KYC en attente</div>
                     </div>
-                    <div class="stat-card stat-red">
-                        <div class="stat-card-header">
-                            <div class="stat-card-icon red">📄</div>
-                        </div>
-                        <div class="stat-card-value" id="stat-pending-docs">0</div>
-                        <div class="stat-card-label">Docs en attente</div>
-                    </div>
                     <div class="stat-card stat-purple">
                         <div class="stat-card-header">
-                            <div class="stat-card-icon purple">💰</div><span class="stat-card-trend up">+20%</span>
+                            <div class="stat-card-icon purple"><i class="ph ph-currency-circle-dollar"
+                                    style="font-size: 24px;"></i></div>
+                            <span class="stat-card-trend up">+20%</span>
                         </div>
                         <div class="stat-card-value" id="stat-revenue">0</div>
-                        <div class="stat-card-label">Revenus totaux</div>
+                        <div class="stat-card-label">Revenus totaux (GNF)</div>
                     </div>
                     <div class="stat-card stat-green">
                         <div class="stat-card-header">
-                            <div class="stat-card-icon green">📋</div>
+                            <div class="stat-card-icon green"><i class="ph ph-clipboard-text"
+                                    style="font-size: 24px;"></i></div>
                         </div>
                         <div class="stat-card-value" id="stat-active-rentals">0</div>
                         <div class="stat-card-label">Locations actives</div>
@@ -119,15 +168,15 @@
                 <div class="two-column">
                     <div class="panel">
                         <div class="panel-header">
-                            <h3 class="panel-title">Activité récente</h3><a href="audit-log.html"
-                                class="btn btn-ghost btn-xs">Voir tout →</a>
+                            <h3 class="panel-title">Activité récente</h3>
+                            <a href="audit-log.html" class="btn btn-ghost btn-xs">Voir tout →</a>
                         </div>
                         <div id="recentActivity"></div>
                     </div>
                     <div class="panel">
                         <div class="panel-header">
-                            <h3 class="panel-title">Nouveaux utilisateurs</h3><a href="utilisateurs.html"
-                                class="btn btn-ghost btn-xs">Voir tout →</a>
+                            <h3 class="panel-title">Nouveaux utilisateurs</h3>
+                            <a href="utilisateurs.html" class="btn btn-ghost btn-xs">Voir tout →</a>
                         </div>
                         <div id="newUsers"></div>
                     </div>
@@ -139,15 +188,21 @@
                     </div>
                     <div class="panel-body">
                         <div class="flex gap-3 flex-wrap">
-                            <a href="validation-kyc.html" class="btn btn-primary">✅ Valider des KYC</a>
-                            <a href="validation-vehicules.html" class="btn btn-secondary">🚗 Valider des véhicules</a>
-                            <a href="utilisateurs.html" class="btn btn-secondary">👥 Gérer les utilisateurs</a>
-                            <a href="audit-log.html" class="btn btn-secondary">📋 Journal d'audit</a>
+                            <a href="validation-kyc.html" class="btn btn-primary"><i class="ph ph-check-circle"
+                                    style="font-size: 18px;"></i> Valider des KYC</a>
+                            <a href="validation-vehicules.html" class="btn btn-secondary"><i class="ph ph-car-profile"
+                                    style="font-size: 18px;"></i> Valider des véhicules</a>
+                            <a href="utilisateurs.html" class="btn btn-secondary"><i class="ph ph-users"
+                                    style="font-size: 18px;"></i> Gérer les utilisateurs</a>
+                            <a href="agences.html" class="btn btn-secondary"><i class="ph ph-storefront"
+                                    style="font-size: 18px;"></i> Gérer les agences</a>
+                            <a href="audit-log.html" class="btn btn-secondary"><i class="ph ph-clipboard-text"
+                                    style="font-size: 18px;"></i> Journal d'audit</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer class="app-footer"><span>© 2026 AutoLoc Pro</span></footer>
+            <footer class="app-footer"><span>© 2026 AutoLoc Pro — Tous droits réservés</span></footer>
         </main>
     </div>
     <script src="../assets/js/utils.js"></script>

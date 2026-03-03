@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de bord Propriétaire - AutoLoc Pro</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/layout.css">
     <link rel="stylesheet" href="../assets/css/components.css">
@@ -14,30 +15,47 @@
 <body>
     <div class="app-layout">
         <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header"><a href="../../index.html" class="sidebar-logo">
-                    <div class="sidebar-logo-icon">🚗</div>
+            <div class="sidebar-header">
+                <a href="../../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon"><i class="ph ph-car-profile" style="color: white;"></i></div>
                     <div class="sidebar-logo-text">Auto<span>Loc</span></div>
-                </a></div>
+                </a>
+                <button class="sidebar-collapse-btn" title="Réduire/Agrandir"><i class="ph ph-caret-left"></i></button>
+            </div>
             <nav class="sidebar-nav">
                 <div class="sidebar-section">
                     <div class="sidebar-section-title">Principal</div>
-                    <a href="dashboard.html" class="sidebar-link active"><span class="sidebar-link-icon">📊</span>
-                        Tableau de bord</a>
-                    <a href="liste-vehicules.html" class="sidebar-link"><span class="sidebar-link-icon">🚗</span> Mes
-                        véhicules</a>
-                    <a href="ajouter-vehicule.html" class="sidebar-link"><span class="sidebar-link-icon">➕</span>
-                        Ajouter véhicule</a>
+                    <a href="dashboard.html" class="sidebar-link active" data-tooltip="Tableau de bord">
+                        <span class="sidebar-link-icon"><i class="ph ph-squares-four"></i></span>
+                        <span class="sidebar-link-text">Tableau de bord</span>
+                    </a>
+                    <a href="liste-vehicules.html" class="sidebar-link" data-tooltip="Mes véhicules">
+                        <span class="sidebar-link-icon"><i class="ph ph-car-profile"></i></span>
+                        <span class="sidebar-link-text">Mes véhicules</span>
+                    </a>
+                    <a href="ajouter-vehicule.html" class="sidebar-link" data-tooltip="Ajouter véhicule">
+                        <span class="sidebar-link-icon"><i class="ph ph-plus-circle"></i></span>
+                        <span class="sidebar-link-text">Ajouter véhicule</span>
+                    </a>
                 </div>
                 <div class="sidebar-section">
                     <div class="sidebar-section-title">Gestion</div>
-                    <a href="gestion-tarifs.html" class="sidebar-link"><span class="sidebar-link-icon">💰</span>
-                        Tarifs</a>
-                    <a href="disponibilite.html" class="sidebar-link"><span class="sidebar-link-icon">📅</span>
-                        Disponibilité</a>
-                    <a href="documents.html" class="sidebar-link"><span class="sidebar-link-icon">📄</span>
-                        Documents</a>
-                    <a href="suivi-exploitation.html" class="sidebar-link"><span class="sidebar-link-icon">📈</span>
-                        Suivi exploitation</a>
+                    <a href="gestion-tarifs.html" class="sidebar-link" data-tooltip="Tarifs">
+                        <span class="sidebar-link-icon"><i class="ph ph-tag"></i></span>
+                        <span class="sidebar-link-text">Tarifs</span>
+                    </a>
+                    <a href="disponibilite.html" class="sidebar-link" data-tooltip="Disponibilité">
+                        <span class="sidebar-link-icon"><i class="ph ph-calendar-check"></i></span>
+                        <span class="sidebar-link-text">Disponibilité</span>
+                    </a>
+                    <a href="documents.html" class="sidebar-link" data-tooltip="Documents">
+                        <span class="sidebar-link-icon"><i class="ph ph-file-text"></i></span>
+                        <span class="sidebar-link-text">Documents</span>
+                    </a>
+                    <a href="suivi-exploitation.html" class="sidebar-link" data-tooltip="Suivi exploitation">
+                        <span class="sidebar-link-icon"><i class="ph ph-chart-line-up"></i></span>
+                        <span class="sidebar-link-text">Suivi exploitation</span>
+                    </a>
                 </div>
             </nav>
             <div class="sidebar-footer">
@@ -46,12 +64,13 @@
                     <div class="sidebar-user-info">
                         <div class="sidebar-user-name">Utilisateur</div>
                         <div class="sidebar-user-role">Propriétaire</div>
-                    </div><span style="color:var(--gray-500);">⏻</span>
+                    </div>
+                    <span class="sidebar-logout-icon"><i class="ph ph-sign-out"></i></span>
                 </div>
             </div>
         </aside>
-        <div class="sidebar-overlay" id="sidebarOverlay"></div><button class="sidebar-toggle"
-            id="sidebarToggle">☰</button>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
 
         <main class="main-wrapper">
             <nav class="navbar">
@@ -59,7 +78,8 @@
                     <div class="navbar-breadcrumb"><a href="../../index.html">Accueil</a><span
                             class="separator">/</span><span class="current">Tableau de bord</span></div>
                 </div>
-                <div class="navbar-right"><button class="navbar-icon-btn"><span class="badge-dot"></span>🔔</button>
+                <div class="navbar-right">
+                    <button class="navbar-icon-btn"><span class="badge-dot"></span><i class="ph ph-bell"></i></button>
                     <div class="navbar-avatar">IB</div>
                 </div>
             </nav>
@@ -72,28 +92,33 @@
                 <div class="stats-grid stagger-children">
                     <div class="stat-card stat-blue">
                         <div class="stat-card-header">
-                            <div class="stat-card-icon blue">🚗</div><span class="stat-card-trend up">+2</span>
+                            <div class="stat-card-icon blue"><i class="ph ph-car-profile" style="font-size:24px;"></i>
+                            </div>
+                            <span class="stat-card-trend up">+2</span>
                         </div>
                         <div class="stat-card-value" id="stat-vehicles">0</div>
                         <div class="stat-card-label">Véhicules</div>
                     </div>
                     <div class="stat-card stat-green">
                         <div class="stat-card-header">
-                            <div class="stat-card-icon green">📋</div>
+                            <div class="stat-card-icon green"><i class="ph ph-list-checks" style="font-size:24px;"></i>
+                            </div>
                         </div>
                         <div class="stat-card-value" id="stat-active-rentals">0</div>
                         <div class="stat-card-label">Locations actives</div>
                     </div>
                     <div class="stat-card stat-amber">
                         <div class="stat-card-header">
-                            <div class="stat-card-icon amber">💰</div><span class="stat-card-trend up">+15%</span>
+                            <div class="stat-card-icon amber"><i class="ph ph-currency-circle-dollar"
+                                    style="font-size:24px;"></i></div>
+                            <span class="stat-card-trend up">+15%</span>
                         </div>
                         <div class="stat-card-value" id="stat-revenue">0</div>
-                        <div class="stat-card-label">Revenus totaux</div>
+                        <div class="stat-card-label">Revenus totaux (GNF)</div>
                     </div>
                     <div class="stat-card stat-purple">
                         <div class="stat-card-header">
-                            <div class="stat-card-icon purple">⭐</div>
+                            <div class="stat-card-icon purple"><i class="ph ph-star" style="font-size:24px;"></i></div>
                         </div>
                         <div class="stat-card-value" id="stat-rating">0</div>
                         <div class="stat-card-label">Note moyenne</div>
@@ -103,15 +128,15 @@
                 <div class="two-column">
                     <div class="panel">
                         <div class="panel-header">
-                            <h3 class="panel-title">Locations récentes</h3><a href="suivi-exploitation.html"
-                                class="btn btn-ghost btn-xs">Voir tout →</a>
+                            <h3 class="panel-title">Locations récentes</h3>
+                            <a href="suivi-exploitation.html" class="btn btn-ghost btn-xs">Voir tout →</a>
                         </div>
                         <div id="recentRentals"></div>
                     </div>
                     <div class="panel">
                         <div class="panel-header">
-                            <h3 class="panel-title">Mes véhicules</h3><a href="liste-vehicules.html"
-                                class="btn btn-ghost btn-xs">Voir tout →</a>
+                            <h3 class="panel-title">Mes véhicules</h3>
+                            <a href="liste-vehicules.html" class="btn btn-ghost btn-xs">Voir tout →</a>
                         </div>
                         <div id="vehiclesOverview"></div>
                     </div>
@@ -123,15 +148,19 @@
                     </div>
                     <div class="panel-body">
                         <div class="flex gap-3 flex-wrap">
-                            <a href="ajouter-vehicule.html" class="btn btn-primary">➕ Ajouter un véhicule</a>
-                            <a href="gestion-tarifs.html" class="btn btn-secondary">💰 Modifier les tarifs</a>
-                            <a href="disponibilite.html" class="btn btn-secondary">📅 Gérer disponibilité</a>
-                            <a href="documents.html" class="btn btn-secondary">📄 Soumettre documents</a>
+                            <a href="ajouter-vehicule.html" class="btn btn-primary"><i class="ph ph-plus-circle"
+                                    style="font-size:18px;"></i> Ajouter un véhicule</a>
+                            <a href="gestion-tarifs.html" class="btn btn-secondary"><i class="ph ph-tag"
+                                    style="font-size:18px;"></i> Modifier les tarifs</a>
+                            <a href="disponibilite.html" class="btn btn-secondary"><i class="ph ph-calendar-check"
+                                    style="font-size:18px;"></i> Gérer disponibilité</a>
+                            <a href="documents.html" class="btn btn-secondary"><i class="ph ph-file-text"
+                                    style="font-size:18px;"></i> Soumettre documents</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer class="app-footer"><span>© 2026 AutoLoc Pro</span></footer>
+            <footer class="app-footer"><span>© 2026 AutoLoc Pro — Tous droits réservés</span></footer>
         </main>
     </div>
     <script src="../assets/js/utils.js"></script>

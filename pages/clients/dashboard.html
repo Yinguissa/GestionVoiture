@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de bord - AutoLoc Pro</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/layout.css">
     <link rel="stylesheet" href="../assets/css/components.css">
@@ -12,78 +13,88 @@
 </head>
 
 <body>
-    <div class="app-layout">
-        <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <a href="../../index.html" class="sidebar-logo">
-                    <div class="sidebar-logo-icon">🚗</div>
-                    <div class="sidebar-logo-text">Auto<span>Loc</span></div>
+    <!-- CLIENT LAYOUT: Navbar only, no sidebar -->
+    <div class="client-layout">
+
+        <!-- Client Navbar -->
+        <nav class="client-navbar">
+            <a href="../../index.html" class="client-navbar-logo">
+                <div class="logo-icon"><i class="ph ph-car-profile" style="color: white;"></i></div>
+                <div class="logo-text">Auto<span>Loc</span></div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div class="client-nav-links">
+                <a href="dashboard.html" class="client-nav-link active">
+                    <i class="ph ph-squares-four"></i> Tableau de bord
+                </a>
+                <a href="recherche.html" class="client-nav-link">
+                    <i class="ph ph-magnifying-glass"></i> Rechercher
+                </a>
+                <a href="favoris.html" class="client-nav-link">
+                    <i class="ph ph-heart"></i> Favoris
+                </a>
+                <a href="historique-locations.html" class="client-nav-link">
+                    <i class="ph ph-list-checks"></i> Mes locations
+                </a>
+                <a href="profil.html" class="client-nav-link">
+                    <i class="ph ph-user-circle"></i> Profil
+                </a>
+                <a href="knowyourcustumer.html" class="client-nav-link">
+                    <i class="ph ph-identification-card"></i> KYC
                 </a>
             </div>
-            <nav class="sidebar-nav">
-                <div class="sidebar-section">
-                    <div class="sidebar-section-title">Principal</div>
-                    <a href="dashboard.html" class="sidebar-link active">
-                        <span class="sidebar-link-icon">📊</span> Tableau de bord
-                    </a>
-                    <a href="recherche.html" class="sidebar-link">
-                        <span class="sidebar-link-icon">🔍</span> Rechercher
-                    </a>
-                    <a href="favoris.html" class="sidebar-link">
-                        <span class="sidebar-link-icon">❤️</span> Favoris
-                    </a>
-                    <a href="historique-locations.html" class="sidebar-link">
-                        <span class="sidebar-link-icon">📋</span> Mes locations
-                    </a>
-                </div>
-                <div class="sidebar-section">
-                    <div class="sidebar-section-title">Mon compte</div>
-                    <a href="profil.html" class="sidebar-link">
-                        <span class="sidebar-link-icon">👤</span> Profil
-                    </a>
-                    <a href="knowyourcustumer.html" class="sidebar-link">
-                        <span class="sidebar-link-icon">✅</span> Vérification KYC
-                    </a>
-                    <a href="securite.html" class="sidebar-link">
-                        <span class="sidebar-link-icon">🔒</span> Sécurité
-                    </a>
-                    <a href="appareils.html" class="sidebar-link">
-                        <span class="sidebar-link-icon">📱</span> Appareils
-                    </a>
-                </div>
-            </nav>
-            <div class="sidebar-footer">
-                <div class="sidebar-user" onclick="logout()">
-                    <div class="sidebar-user-avatar">MD</div>
-                    <div class="sidebar-user-info">
-                        <div class="sidebar-user-name">Utilisateur</div>
-                        <div class="sidebar-user-role">Client</div>
-                    </div>
-                    <span style="color:var(--gray-500);font-size:14px;">⏻</span>
+
+            <!-- Actions -->
+            <div class="client-navbar-actions">
+                <button class="navbar-icon-btn"><span class="badge-dot"></span><i class="ph ph-bell"></i></button>
+                <div class="navbar-avatar client-navbar-avatar" data-dropdown="userDropdown">MD</div>
+                <div class="dropdown-menu" id="userDropdown">
+                    <a href="profil.html" class="dropdown-item"><i class="ph ph-user"></i> Mon profil</a>
+                    <a href="securite.html" class="dropdown-item"><i class="ph ph-lock"></i> Sécurité</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item" onclick="logout()"><i class="ph ph-sign-out"></i> Déconnexion</a>
                 </div>
             </div>
-        </aside>
-        <div class="sidebar-overlay" id="sidebarOverlay"></div>
-        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
+            <!-- Mobile hamburger -->
+            <button class="client-menu-toggle"><i class="ph ph-list"></i></button>
+        </nav>
+
+        <!-- Mobile Nav Drawer -->
+        <div class="client-nav-drawer">
+            <a href="dashboard.html" class="client-nav-link active">
+                <i class="ph ph-squares-four"></i> Tableau de bord
+            </a>
+            <a href="recherche.html" class="client-nav-link">
+                <i class="ph ph-magnifying-glass"></i> Rechercher
+            </a>
+            <a href="favoris.html" class="client-nav-link">
+                <i class="ph ph-heart"></i> Favoris
+            </a>
+            <a href="historique-locations.html" class="client-nav-link">
+                <i class="ph ph-list-checks"></i> Mes locations
+            </a>
+            <a href="profil.html" class="client-nav-link">
+                <i class="ph ph-user-circle"></i> Profil
+            </a>
+            <a href="knowyourcustumer.html" class="client-nav-link">
+                <i class="ph ph-identification-card"></i> KYC
+            </a>
+            <a href="securite.html" class="client-nav-link">
+                <i class="ph ph-lock"></i> Sécurité
+            </a>
+            <div
+                style="border-top:1px solid var(--border-color); margin-top: var(--space-2); padding-top: var(--space-2);">
+                <a href="#" class="client-nav-link" onclick="logout()">
+                    <i class="ph ph-sign-out"></i> Déconnexion
+                </a>
+            </div>
+        </div>
 
         <!-- Main Content -->
-        <main class="main-wrapper">
-            <nav class="navbar">
-                <div class="navbar-left">
-                    <div class="navbar-breadcrumb">
-                        <a href="../../index.html">Accueil</a>
-                        <span class="separator">/</span>
-                        <span class="current">Tableau de bord</span>
-                    </div>
-                </div>
-                <div class="navbar-right">
-                    <button class="navbar-icon-btn"><span class="badge-dot"></span>🔔</button>
-                    <div class="navbar-avatar">MD</div>
-                </div>
-            </nav>
-
-            <div class="page-content">
+        <div class="client-main-content">
+            <div class="page-content" style="max-width: 1200px; margin: 0 auto; width: 100%;">
                 <div class="page-header animate-fade-in-up">
                     <h1 class="page-title">Tableau de bord</h1>
                     <p class="page-subtitle">Bienvenue ! Voici un résumé de votre activité.</p>
@@ -93,7 +104,8 @@
                 <div class="stats-grid stagger-children">
                     <div class="stat-card stat-blue">
                         <div class="stat-card-header">
-                            <div class="stat-card-icon blue">📋</div>
+                            <div class="stat-card-icon blue"><i class="ph ph-list-checks" style="font-size:24px;"></i>
+                            </div>
                             <span class="stat-card-trend up">+12%</span>
                         </div>
                         <div class="stat-card-value" id="stat-locations">0</div>
@@ -101,22 +113,24 @@
                     </div>
                     <div class="stat-card stat-green">
                         <div class="stat-card-header">
-                            <div class="stat-card-icon green">🚗</div>
+                            <div class="stat-card-icon green"><i class="ph ph-car-profile" style="font-size:24px;"></i>
+                            </div>
                         </div>
                         <div class="stat-card-value" id="stat-active">0</div>
                         <div class="stat-card-label">Locations actives</div>
                     </div>
                     <div class="stat-card stat-amber">
                         <div class="stat-card-header">
-                            <div class="stat-card-icon amber">💰</div>
+                            <div class="stat-card-icon amber"><i class="ph ph-currency-circle-dollar"
+                                    style="font-size:24px;"></i></div>
                             <span class="stat-card-trend up">+8%</span>
                         </div>
-                        <div class="stat-card-value" id="stat-spent">0 FCFA</div>
+                        <div class="stat-card-value" id="stat-spent">0 GNF</div>
                         <div class="stat-card-label">Total dépensé</div>
                     </div>
                     <div class="stat-card stat-red">
                         <div class="stat-card-header">
-                            <div class="stat-card-icon red">❤️</div>
+                            <div class="stat-card-icon red"><i class="ph ph-heart" style="font-size:24px;"></i></div>
                         </div>
                         <div class="stat-card-value" id="stat-favoris">0</div>
                         <div class="stat-card-label">Favoris</div>
@@ -150,19 +164,23 @@
                     </div>
                     <div class="panel-body">
                         <div class="flex gap-3 flex-wrap">
-                            <a href="recherche.html" class="btn btn-primary">🔍 Rechercher un véhicule</a>
-                            <a href="profil.html" class="btn btn-secondary">👤 Compléter mon profil</a>
-                            <a href="knowyourcustumer.html" class="btn btn-secondary">✅ Vérifier mon identité</a>
+                            <a href="recherche.html" class="btn btn-primary"><i class="ph ph-magnifying-glass"
+                                    style="font-size:18px;"></i> Rechercher un véhicule</a>
+                            <a href="profil.html" class="btn btn-secondary"><i class="ph ph-user"
+                                    style="font-size:18px;"></i> Compléter mon profil</a>
+                            <a href="knowyourcustumer.html" class="btn btn-secondary"><i
+                                    class="ph ph-identification-card" style="font-size:18px;"></i> Vérifier mon
+                                identité</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <footer class="app-footer">
+            <footer class="app-footer" style="max-width: 1200px; margin: 0 auto; width:100%; border-top: none;">
                 <span>© 2026 AutoLoc Pro</span>
                 <a href="#">Support</a>
             </footer>
-        </main>
+        </div>
     </div>
 
     <script src="../assets/js/utils.js"></script>

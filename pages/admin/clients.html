@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Utilisateurs - AutoLoc Pro</title>
+    <title>Gestion des Clients - AutoLoc Pro</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/layout.css">
@@ -31,12 +31,12 @@
                         <span class="sidebar-link-icon"><i class="ph ph-squares-four"></i></span>
                         <span class="sidebar-link-text">Tableau de bord</span>
                     </a>
-                    <a href="#" class="sidebar-link has-submenu open active" data-tooltip="Utilisateurs">
+                    <a href="#" class="sidebar-link has-submenu" data-tooltip="Utilisateurs">
                         <span class="sidebar-link-icon"><i class="ph ph-users"></i></span>
                         <span class="sidebar-link-text">Utilisateurs</span>
                     </a>
-                    <div class="sidebar-submenu open">
-                        <a href="utilisateurs.html" class="sidebar-link active">Gérer les utilisateurs</a>
+                    <div class="sidebar-submenu">
+                        <a href="utilisateurs.html" class="sidebar-link">Gérer les utilisateurs</a>
                     </div>
                     <a href="#" class="sidebar-link has-submenu" data-tooltip="Validations">
                         <span class="sidebar-link-icon"><i class="ph ph-shield-check"></i></span>
@@ -53,7 +53,7 @@
                         <span class="sidebar-link-icon"><i class="ph ph-car-profile"></i></span>
                         <span class="sidebar-link-text">Véhicules</span>
                     </a>
-                    <a href="clients.html" class="sidebar-link" data-tooltip="Clients">
+                    <a href="clients.html" class="sidebar-link active" data-tooltip="Clients">
                         <span class="sidebar-link-icon"><i class="ph ph-user-circle"></i></span>
                         <span class="sidebar-link-text">Clients</span>
                     </a>
@@ -94,7 +94,7 @@
                     <div class="navbar-breadcrumb">
                         <a href="dashboard.html">Admin</a>
                         <span class="separator">/</span>
-                        <span class="current">Utilisateurs</span>
+                        <span class="current">Clients</span>
                     </div>
                 </div>
                 <div class="navbar-right">
@@ -108,56 +108,107 @@
                 <div class="page-header animate-fade-in-up">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h1 class="page-title">Gestion des utilisateurs</h1>
-                            <p class="page-subtitle" id="userCount">Chargement...</p>
+                            <h1 class="page-title">Gestion des Clients</h1>
+                            <p class="page-subtitle" id="clientCount">Chargement...</p>
                         </div>
                     </div>
                     <div class="page-header-actions">
                         <div class="form-input-group" style="max-width:320px;">
                             <span class="input-icon"><i class="ph ph-magnifying-glass"></i></span>
-                            <input type="text" class="form-input" placeholder="Rechercher..." id="searchInput"
-                                oninput="loadAdminUsers()">
+                            <input type="text" class="form-input" placeholder="Rechercher un client..."
+                                id="clientSearchInput" oninput="loadClientsPage()">
                         </div>
-                        <select class="form-select" id="roleFilter" onchange="loadAdminUsers()"
-                            style="max-width:180px;">
-                            <option value="">Tous les rôles</option>
-                            <option value="client">Client</option>
-                            <option value="proprietaire">Propriétaire</option>
-                            <option value="agence">Agence</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                        <select class="form-select" id="statusFilter" onchange="loadAdminUsers()"
-                            style="max-width:180px;">
-                            <option value="">Tous les statuts</option>
-                            <option value="actif">Actif</option>
-                            <option value="suspendu">Suspendu</option>
-                        </select>
                     </div>
                 </div>
 
-                <div class="table-wrapper animate-fade-in-up">
+                <div class="table-wrapper">
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>Utilisateur</th>
-                                <th>Rôle</th>
+                                <th>Client</th>
+                                <th>Téléphone</th>
+                                <th>Ville</th>
                                 <th>Statut</th>
                                 <th>KYC</th>
-                                <th>Inscription</th>
+                                <th>Locations</th>
+                                <th>Total dépensé</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="usersTableBody"></tbody>
+                        <tbody id="clientsTableBody">
+                        </tbody>
                     </table>
                 </div>
             </div>
             <footer class="app-footer"><span>© 2026 AutoLoc Pro — Tous droits réservés</span></footer>
         </main>
     </div>
+
     <script src="../assets/js/utils.js"></script>
     <script src="../assets/js/app.js"></script>
     <script src="../assets/js/admin.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', () => { if (!requireAuth('admin')) return; loadAdminUsers(); });</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!requireAuth('admin')) return;
+            loadClientsPage();
+        });
+
+        function loadClientsPage() {
+            const tbody = document.getElementById('clientsTableBody');
+            const countEl = document.getElementById('clientCount');
+            if (!tbody) return;
+
+            let clients = AppData.users.filter(u => u.role === 'client');
+
+            const search = document.getElementById('clientSearchInput')?.value?.toLowerCase();
+            if (search) {
+                clients = clients.filter(u =>
+                    u.nom.toLowerCase().includes(search) ||
+                    u.prenom.toLowerCase().includes(search) ||
+                    u.email.toLowerCase().includes(search) ||
+                    (u.ville && u.ville.toLowerCase().includes(search))
+                );
+            }
+
+            if (countEl) countEl.textContent = `${clients.length} client(s) trouvé(s)`;
+
+            if (clients.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="empty-state-icon"><i class="ph ph-user-circle" style="font-size:3rem;color:var(--slate-300);"></i></div><h3 class="empty-state-title">Aucun client trouvé</h3></div></td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = clients.map(u => {
+                const locations = AppData.locations.filter(l => l.clientId === u.id);
+                const totalSpent = locations.filter(l => l.paiement === 'payé').reduce((s, l) => s + l.prixTotal, 0);
+
+                return `
+                    <tr>
+                        <td>
+                            <div class="table-user">
+                                <div class="table-user-avatar" style="background:${getAvatarColor(u.prenom + u.nom)}">${Format.initials(u.prenom + ' ' + u.nom)}</div>
+                                <div class="table-user-info">
+                                    <span class="table-user-name">${u.prenom} ${u.nom}</span>
+                                    <span class="table-user-email">${u.email}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>${u.telephone}</td>
+                        <td>${u.ville || '—'}</td>
+                        <td>${getStatusBadge(u.statut)}</td>
+                        <td>${getStatusBadge(u.kyc)}</td>
+                        <td><span class="font-semibold">${locations.length}</span></td>
+                        <td><span class="font-semibold">${Format.currency(totalSpent)}</span></td>
+                        <td>
+                            <div class="table-actions">
+                                <button class="btn btn-ghost btn-xs" onclick="viewUserDetail('${u.id}')"><i class="ph ph-eye"></i></button>
+                                <button class="btn btn-ghost btn-xs" onclick="toggleUserStatus('${u.id}'); loadClientsPage();">${u.statut === 'actif' ? '<i class="ph ph-prohibit"></i>' : '<i class="ph ph-check"></i>'}</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+    </script>
 </body>
 
 </html>

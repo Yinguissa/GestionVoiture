@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Utilisateurs - AutoLoc Pro</title>
+    <title>Gestion des Agences - AutoLoc Pro</title>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/layout.css">
@@ -14,6 +14,7 @@
 
 <body>
     <div class="app-layout">
+        <!-- Collapsible Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <a href="../../index.html" class="sidebar-logo">
@@ -31,12 +32,13 @@
                         <span class="sidebar-link-icon"><i class="ph ph-squares-four"></i></span>
                         <span class="sidebar-link-text">Tableau de bord</span>
                     </a>
-                    <a href="#" class="sidebar-link has-submenu open active" data-tooltip="Utilisateurs">
+                    <a href="#" class="sidebar-link has-submenu" data-tooltip="Utilisateurs">
                         <span class="sidebar-link-icon"><i class="ph ph-users"></i></span>
                         <span class="sidebar-link-text">Utilisateurs</span>
                     </a>
-                    <div class="sidebar-submenu open">
-                        <a href="utilisateurs.html" class="sidebar-link active">Gérer les utilisateurs</a>
+                    <div class="sidebar-submenu">
+                        <a href="utilisateurs.html" class="sidebar-link">Gérer les utilisateurs</a>
+                        <a href="detail-utilisateur.html" class="sidebar-link">Détails utilisateur</a>
                     </div>
                     <a href="#" class="sidebar-link has-submenu" data-tooltip="Validations">
                         <span class="sidebar-link-icon"><i class="ph ph-shield-check"></i></span>
@@ -57,7 +59,7 @@
                         <span class="sidebar-link-icon"><i class="ph ph-user-circle"></i></span>
                         <span class="sidebar-link-text">Clients</span>
                     </a>
-                    <a href="agences.html" class="sidebar-link" data-tooltip="Agences">
+                    <a href="agences.html" class="sidebar-link active" data-tooltip="Agences">
                         <span class="sidebar-link-icon"><i class="ph ph-storefront"></i></span>
                         <span class="sidebar-link-text">Agences</span>
                     </a>
@@ -94,7 +96,7 @@
                     <div class="navbar-breadcrumb">
                         <a href="dashboard.html">Admin</a>
                         <span class="separator">/</span>
-                        <span class="current">Utilisateurs</span>
+                        <span class="current">Agences</span>
                     </div>
                 </div>
                 <div class="navbar-right">
@@ -108,56 +110,98 @@
                 <div class="page-header animate-fade-in-up">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h1 class="page-title">Gestion des utilisateurs</h1>
-                            <p class="page-subtitle" id="userCount">Chargement...</p>
+                            <h1 class="page-title">Gestion des Agences</h1>
+                            <p class="page-subtitle" id="agenceCount">Chargement...</p>
                         </div>
-                    </div>
-                    <div class="page-header-actions">
-                        <div class="form-input-group" style="max-width:320px;">
-                            <span class="input-icon"><i class="ph ph-magnifying-glass"></i></span>
-                            <input type="text" class="form-input" placeholder="Rechercher..." id="searchInput"
-                                oninput="loadAdminUsers()">
-                        </div>
-                        <select class="form-select" id="roleFilter" onchange="loadAdminUsers()"
-                            style="max-width:180px;">
-                            <option value="">Tous les rôles</option>
-                            <option value="client">Client</option>
-                            <option value="proprietaire">Propriétaire</option>
-                            <option value="agence">Agence</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                        <select class="form-select" id="statusFilter" onchange="loadAdminUsers()"
-                            style="max-width:180px;">
-                            <option value="">Tous les statuts</option>
-                            <option value="actif">Actif</option>
-                            <option value="suspendu">Suspendu</option>
-                        </select>
                     </div>
                 </div>
 
-                <div class="table-wrapper animate-fade-in-up">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Utilisateur</th>
-                                <th>Rôle</th>
-                                <th>Statut</th>
-                                <th>KYC</th>
-                                <th>Inscription</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="usersTableBody"></tbody>
-                    </table>
+                <!-- Agences Grid -->
+                <div class="grid grid-cols-2 gap-6 stagger-children" id="agencesGrid">
+                    <!-- Filled by JS -->
                 </div>
             </div>
             <footer class="app-footer"><span>© 2026 AutoLoc Pro — Tous droits réservés</span></footer>
         </main>
     </div>
+
     <script src="../assets/js/utils.js"></script>
     <script src="../assets/js/app.js"></script>
     <script src="../assets/js/admin.js"></script>
-    <script>document.addEventListener('DOMContentLoaded', () => { if (!requireAuth('admin')) return; loadAdminUsers(); });</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!requireAuth('admin')) return;
+            loadAgences();
+        });
+
+        function loadAgences() {
+            const grid = document.getElementById('agencesGrid');
+            const countEl = document.getElementById('agenceCount');
+            if (!grid) return;
+
+            const agenceUsers = AppData.users.filter(u => u.role === 'agence');
+
+            if (countEl) countEl.textContent = `${agenceUsers.length} agence(s) enregistrée(s)`;
+
+            if (agenceUsers.length === 0) {
+                grid.innerHTML = '<div class="col-span-full"><div class="empty-state"><div class="empty-state-icon"><i class="ph ph-storefront" style="font-size:4rem;color:var(--slate-300);"></i></div><h3 class="empty-state-title">Aucune agence</h3><p class="empty-state-description">Il n\'y a pas encore d\'agence sur la plateforme.</p></div></div>';
+                return;
+            }
+
+            grid.innerHTML = agenceUsers.map(ag => {
+                const vehicles = AppData.vehicules.filter(v => v.proprietaireId === ag.id);
+                const vehicleIds = vehicles.map(v => v.id);
+                const locations = AppData.locations.filter(l => vehicleIds.includes(l.vehiculeId));
+                const revenue = locations.filter(l => l.paiement === 'payé').reduce((s, l) => s + l.prixTotal, 0);
+
+                return `
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="avatar" style="background:${getAvatarColor(ag.prenom + ag.nom)};color:white;width:56px;height:56px;font-size:var(--font-size-lg);">
+                                    ${Format.initials(ag.prenom + ' ' + ag.nom)}
+                                </div>
+                                <div class="flex-1">
+                                    <h3 style="font-size:var(--font-size-lg);margin-bottom:2px;">${ag.nomAgence || 'Sans nom'}</h3>
+                                    <p class="text-sm text-secondary">${ag.prenom} ${ag.nom} · ${ag.ville || 'N/A'}</p>
+                                </div>
+                                ${getStatusBadge(ag.statut)}
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 mb-4" style="text-align:center;">
+                                <div>
+                                    <div class="text-xl font-bold" style="color:var(--primary-600);">${vehicles.length}</div>
+                                    <div class="text-xs text-tertiary">Véhicules</div>
+                                </div>
+                                <div>
+                                    <div class="text-xl font-bold" style="color:var(--emerald-600);">${locations.length}</div>
+                                    <div class="text-xs text-tertiary">Locations</div>
+                                </div>
+                                <div>
+                                    <div class="text-xl font-bold" style="color:var(--accent-600);">${Format.currency(revenue)}</div>
+                                    <div class="text-xs text-tertiary">Revenus</div>
+                                </div>
+                            </div>
+                            <div style="border-top:1px solid var(--border-light); padding-top: var(--space-3);">
+                                <div class="flex items-center gap-2 text-xs text-tertiary">
+                                    <i class="ph ph-envelope"></i> ${ag.email}
+                                </div>
+                                <div class="flex items-center gap-2 text-xs text-tertiary mt-1">
+                                    <i class="ph ph-phone"></i> ${ag.telephone}
+                                </div>
+                                <div class="flex items-center gap-2 text-xs text-tertiary mt-1">
+                                    <i class="ph ph-calendar"></i> Inscrite le ${Format.dateShort(ag.dateInscription)}
+                                </div>
+                            </div>
+                            <div class="flex gap-2 mt-4">
+                                <button class="btn btn-ghost btn-xs" onclick="viewUserDetail('${ag.id}')"><i class="ph ph-eye"></i> Voir</button>
+                                <button class="btn btn-ghost btn-xs" onclick="toggleUserStatus('${ag.id}'); loadAgences();">${ag.statut === 'actif' ? '<i class="ph ph-prohibit"></i> Suspendre' : '<i class="ph ph-check"></i> Activer'}</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    </script>
 </body>
 
 </html>

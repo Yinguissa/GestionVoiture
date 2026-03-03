@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Créez votre compte AutoLoc Pro pour louer ou mettre en location des véhicules.">
     <title>Inscription - AutoLoc Pro</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/layout.css">
     <link rel="stylesheet" href="../assets/css/components.css">
@@ -17,7 +18,7 @@
         <div class="auth-left">
             <div class="auth-card animate-scale-in" style="max-width:500px;">
                 <div class="auth-logo">
-                    <div class="auth-logo-icon">🚗</div>
+                    <div class="auth-logo-icon"><i class="ph ph-car-profile" style="color: white;"></i></div>
                     <div class="auth-logo-text">Auto<span>Loc</span></div>
                 </div>
                 <h1 class="auth-title">Créer un compte</h1>
@@ -27,14 +28,18 @@
                     <div class="form-group">
                         <label class="form-label" for="role">Je suis un <span class="required">*</span></label>
                         <select id="role" class="form-select" required onchange="toggleAgencyField()">
-                            <option value="client">Client - Je cherche à louer</option>
-                            <option value="proprietaire">Propriétaire / Agence - Je mets en location</option>
+                            <option value="client">Client — Je cherche à louer</option>
+                            <option value="proprietaire">Propriétaire — Je mets en location</option>
+                            <option value="agence">Agence — Je gère une flotte</option>
                         </select>
                     </div>
 
                     <div id="agencyField" class="form-group hidden">
-                        <label class="form-label" for="nomAgence">Nom de l'agence</label>
-                        <input type="text" id="nomAgence" class="form-input" placeholder="Nom de votre agence">
+                        <label class="form-label" for="nomAgence">Nom de l'agence / société</label>
+                        <div class="form-input-group">
+                            <span class="input-icon"><i class="ph ph-storefront"></i></span>
+                            <input type="text" id="nomAgence" class="form-input" placeholder="Nom de votre agence">
+                        </div>
                     </div>
 
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
@@ -51,7 +56,7 @@
                     <div class="form-group">
                         <label class="form-label" for="email">Adresse email <span class="required">*</span></label>
                         <div class="form-input-group">
-                            <span class="input-icon">✉</span>
+                            <span class="input-icon"><i class="ph ph-envelope"></i></span>
                             <input type="email" id="email" class="form-input" placeholder="votre@email.com" required>
                         </div>
                     </div>
@@ -59,7 +64,7 @@
                     <div class="form-group">
                         <label class="form-label" for="telephone">Téléphone <span class="required">*</span></label>
                         <div class="form-input-group">
-                            <span class="input-icon">📱</span>
+                            <span class="input-icon"><i class="ph ph-phone"></i></span>
                             <input type="tel" id="telephone" class="form-input" placeholder="+224 6XX XX XX XX"
                                 required>
                         </div>
@@ -70,11 +75,11 @@
                             <label class="form-label" for="password">Mot de passe <span
                                     class="required">*</span></label>
                             <div class="form-input-group">
-                                <span class="input-icon">🔒</span>
+                                <span class="input-icon"><i class="ph ph-lock"></i></span>
                                 <input type="password" id="password" class="form-input" placeholder="Min. 8 caractères"
                                     required>
-                                <button type="button" class="input-action"
-                                    onclick="togglePassword('password')">👁</button>
+                                <button type="button" class="input-action" onclick="togglePassword('password')"><i
+                                        class="ph ph-eye"></i></button>
                             </div>
                             <div class="form-helper">Min. 8 caractères, 1 majuscule, 1 chiffre</div>
                         </div>
@@ -82,7 +87,7 @@
                             <label class="form-label" for="confirmPassword">Confirmer <span
                                     class="required">*</span></label>
                             <div class="form-input-group">
-                                <span class="input-icon">🔒</span>
+                                <span class="input-icon"><i class="ph ph-lock"></i></span>
                                 <input type="password" id="confirmPassword" class="form-input" placeholder="Confirmez"
                                     required>
                             </div>
@@ -97,7 +102,9 @@
                         </label>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-block btn-lg">Créer mon compte</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">
+                        <i class="ph ph-user-plus" style="font-size:18px;"></i> Créer mon compte
+                    </button>
                 </form>
 
                 <div class="auth-footer">
@@ -107,9 +114,11 @@
         </div>
         <div class="auth-right">
             <div class="auth-right-content">
-                <div style="font-size:5rem;margin-bottom:var(--space-6);">🎉</div>
+                <div style="font-size:5rem;margin-bottom:var(--space-6);"><i class="ph ph-user-circle-plus"
+                        style="color:rgba(255,255,255,0.9);"></i></div>
                 <h2>Rejoignez-nous</h2>
-                <p>Plus de 8,500 locations réussies. Inscrivez-vous et profitez de notre plateforme professionnelle.</p>
+                <p>Plus de 8,500 locations réussies. Inscrivez-vous et profitez de notre plateforme professionnelle en
+                    Guinée.</p>
             </div>
         </div>
     </div>
@@ -120,7 +129,8 @@
     <script>
         function toggleAgencyField() {
             const role = document.getElementById('role').value;
-            document.getElementById('agencyField').classList.toggle('hidden', role !== 'proprietaire');
+            const show = role === 'proprietaire' || role === 'agence';
+            document.getElementById('agencyField').classList.toggle('hidden', !show);
         }
     </script>
 </body>
